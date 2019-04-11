@@ -35,3 +35,142 @@ Carthage/Build
 # `pod install` in .travis.yml
 #
 # Pods/
+Example/Podfile.lock
+Example/Pods/Manifest.lock
+Example/Pods/Local Podspecs/TillhubPointOfSaleSDK.podspec.json
+Example/Pods/Nimble/LICENSE
+Example/Pods/Nimble/README.md
+Example/Pods/Nimble/Carthage/Checkouts/CwlCatchException/Sources/CwlCatchException/CwlCatchException.swift
+Example/Pods/Nimble/Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/CwlCatchException.m
+Example/Pods/Nimble/Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include/CwlCatchException.h
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/CwlMachBadInstructionHandler.m
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/mach_excServer.c
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/mach_excServer.h
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/include/CwlMachBadInstructionHandler.h
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlBadInstructionException.swift
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlCatchBadInstruction.swift
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlDarwinDefinitions.swift
+Example/Pods/Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/Mach/CwlPreconditionTesting.h
+Example/Pods/Nimble/Sources/Nimble/DSL+Wait.swift
+Example/Pods/Nimble/Sources/Nimble/DSL.swift
+Example/Pods/Nimble/Sources/Nimble/Expectation.swift
+Example/Pods/Nimble/Sources/Nimble/ExpectationMessage.swift
+Example/Pods/Nimble/Sources/Nimble/Expression.swift
+Example/Pods/Nimble/Sources/Nimble/FailureMessage.swift
+Example/Pods/Nimble/Sources/Nimble/Nimble.h
+Example/Pods/Nimble/Sources/Nimble/Adapters/AdapterProtocols.swift
+Example/Pods/Nimble/Sources/Nimble/Adapters/AssertionDispatcher.swift
+Example/Pods/Nimble/Sources/Nimble/Adapters/AssertionRecorder.swift
+Example/Pods/Nimble/Sources/Nimble/Adapters/NimbleEnvironment.swift
+Example/Pods/Nimble/Sources/Nimble/Adapters/NimbleXCTestHandler.swift
+Example/Pods/Nimble/Sources/Nimble/Adapters/NMBExpectation.swift
+Example/Pods/Nimble/Sources/Nimble/Adapters/NMBObjCMatcher.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/AllPass.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/AsyncMatcherWrapper.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeAKindOf.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeAnInstanceOf.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeCloseTo.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeEmpty.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeginWith.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeGreaterThan.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeGreaterThanOrEqualTo.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeIdenticalTo.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeLessThan.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeLessThanOrEqual.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeLogical.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeNil.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/BeVoid.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/Contain.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/ContainElementSatisfying.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/EndWith.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/Equal.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/HaveCount.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/Match.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/MatcherFunc.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/MatcherProtocols.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/MatchError.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/PostNotification.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/Predicate.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/RaisesException.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/SatisfyAnyOf.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/ThrowAssertion.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/ThrowError.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/ToSucceed.swift
+Example/Pods/Nimble/Sources/Nimble/Utils/Async.swift
+Example/Pods/Nimble/Sources/Nimble/Utils/Errors.swift
+Example/Pods/Nimble/Sources/Nimble/Utils/Functional.swift
+Example/Pods/Nimble/Sources/Nimble/Utils/SourceLocation.swift
+Example/Pods/Nimble/Sources/Nimble/Utils/Stringers.swift
+Example/Pods/Nimble/Sources/NimbleObjectiveC/CurrentTestCaseTracker.h
+Example/Pods/Nimble/Sources/NimbleObjectiveC/DSL.h
+Example/Pods/Nimble/Sources/NimbleObjectiveC/DSL.m
+Example/Pods/Nimble/Sources/NimbleObjectiveC/NMBExceptionCapture.h
+Example/Pods/Nimble/Sources/NimbleObjectiveC/NMBExceptionCapture.m
+Example/Pods/Nimble/Sources/NimbleObjectiveC/NMBStringify.h
+Example/Pods/Nimble/Sources/NimbleObjectiveC/NMBStringify.m
+Example/Pods/Nimble/Sources/NimbleObjectiveC/XCTestObservationCenter+Register.m
+Example/Pods/Pods.xcodeproj/project.pbxproj
+Example/Pods/Quick/LICENSE
+Example/Pods/Quick/README.md
+Example/Pods/Quick/Sources/Quick/Behavior.swift
+Example/Pods/Quick/Sources/Quick/Callsite.swift
+Example/Pods/Quick/Sources/Quick/ErrorUtility.swift
+Example/Pods/Quick/Sources/Quick/Example.swift
+Example/Pods/Quick/Sources/Quick/ExampleGroup.swift
+Example/Pods/Quick/Sources/Quick/ExampleMetadata.swift
+Example/Pods/Quick/Sources/Quick/Filter.swift
+Example/Pods/Quick/Sources/Quick/NSBundle+CurrentTestBundle.swift
+Example/Pods/Quick/Sources/Quick/NSString+C99ExtendedIdentifier.swift
+Example/Pods/Quick/Sources/Quick/QuickSelectedTestSuiteBuilder.swift
+Example/Pods/Quick/Sources/Quick/QuickTestSuite.swift
+Example/Pods/Quick/Sources/Quick/URL+FileName.swift
+Example/Pods/Quick/Sources/Quick/World.swift
+Example/Pods/Quick/Sources/Quick/Configuration/Configuration.swift
+Example/Pods/Quick/Sources/Quick/DSL/DSL.swift
+Example/Pods/Quick/Sources/Quick/DSL/World+DSL.swift
+Example/Pods/Quick/Sources/Quick/Hooks/Closures.swift
+Example/Pods/Quick/Sources/Quick/Hooks/ExampleHooks.swift
+Example/Pods/Quick/Sources/Quick/Hooks/HooksPhase.swift
+Example/Pods/Quick/Sources/Quick/Hooks/SuiteHooks.swift
+Example/Pods/Quick/Sources/QuickObjectiveC/Quick.h
+Example/Pods/Quick/Sources/QuickObjectiveC/QuickSpec.h
+Example/Pods/Quick/Sources/QuickObjectiveC/QuickSpec.m
+Example/Pods/Quick/Sources/QuickObjectiveC/World.h
+Example/Pods/Quick/Sources/QuickObjectiveC/XCTestSuite+QuickTestSuiteBuilder.m
+Example/Pods/Quick/Sources/QuickObjectiveC/Configuration/QuickConfiguration.h
+Example/Pods/Quick/Sources/QuickObjectiveC/Configuration/QuickConfiguration.m
+Example/Pods/Quick/Sources/QuickObjectiveC/DSL/QCKDSL.h
+Example/Pods/Quick/Sources/QuickObjectiveC/DSL/QCKDSL.m
+Example/Pods/Quick/Sources/QuickObjectiveC/DSL/World+DSL.h
+Example/Pods/Quick/Sources/QuickSpecBase/QuickSpecBase.m
+Example/Pods/Quick/Sources/QuickSpecBase/include/QuickSpecBase.h
+Example/Pods/Target Support Files/Nimble/Nimble-dummy.m
+Example/Pods/Target Support Files/Nimble/Nimble-Info.plist
+Example/Pods/Target Support Files/Nimble/Nimble-prefix.pch
+Example/Pods/Target Support Files/Nimble/Nimble-umbrella.h
+Example/Pods/Target Support Files/Nimble/Nimble.modulemap
+Example/Pods/Target Support Files/Nimble/Nimble.xcconfig
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example-acknowledgements.markdown
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example-acknowledgements.plist
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example-dummy.m
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example-frameworks.sh
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example-Info.plist
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example-umbrella.h
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example.debug.xcconfig
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example.modulemap
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example.release.xcconfig
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests-acknowledgements.markdown
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests-acknowledgements.plist
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests-dummy.m
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests-frameworks.sh
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests-Info.plist
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests-umbrella.h
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests.debug.xcconfig
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests.modulemap
+Example/Pods/Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests.release.xcconfig
+Example/Pods/Target Support Files/Quick/Quick-dummy.m
+Example/Pods/Target Support Files/Quick/Quick-Info.plist
+Example/Pods/Target Support Files/Quick/Quick-prefix.pch
+Example/Pods/Target Support Files/Quick/Quick-umbrella.h
+Example/Pods/Target Support Files/Quick/Quick.modulemap
+Example/Pods/Target Support Files/Quick/Quick.xcconfig
