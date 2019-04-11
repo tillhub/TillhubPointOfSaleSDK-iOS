@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		0457BA24997265B2DC8DA64E /* Pods_TillhubPointOfSaleSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TillhubPointOfSaleSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1896DA41A6F8F07194E43618 /* Pods-TillhubPointOfSaleSDK_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TillhubPointOfSaleSDK_Tests.debug.xcconfig"; path = "Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		320D3B949EC9232A077FF4C6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		320D3B949EC9232A077FF4C6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		455C20F3BCADEB34DBA59DCB /* Pods-TillhubPointOfSaleSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TillhubPointOfSaleSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		4BA761458282254E90B8420C /* Pods-TillhubPointOfSaleSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TillhubPointOfSaleSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-TillhubPointOfSaleSDK_Tests/Pods-TillhubPointOfSaleSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* TillhubPointOfSaleSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TillhubPointOfSaleSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,9 +43,9 @@
 		607FACE51AFB9204008FA782 /* TillhubPointOfSaleSDK_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TillhubPointOfSaleSDK_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		8C0BA32782EA2F86CE3AF204 /* TillhubPointOfSaleSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = TillhubPointOfSaleSDK.podspec; path = ../TillhubPointOfSaleSDK.podspec; sourceTree = "<group>"; };
+		8C0BA32782EA2F86CE3AF204 /* TillhubPointOfSaleSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TillhubPointOfSaleSDK.podspec; path = ../TillhubPointOfSaleSDK.podspec; sourceTree = "<group>"; };
 		AE477DC8BED7BC708395E270 /* Pods-TillhubPointOfSaleSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TillhubPointOfSaleSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		C9A95DB0F33A84FBA080EF8C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C9A95DB0F33A84FBA080EF8C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E2BA10EAD16287A6CAFE7E5F /* Pods_TillhubPointOfSaleSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TillhubPointOfSaleSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -156,7 +156,6 @@
 				1896DA41A6F8F07194E43618 /* Pods-TillhubPointOfSaleSDK_Tests.debug.xcconfig */,
 				4BA761458282254E90B8420C /* Pods-TillhubPointOfSaleSDK_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -214,10 +213,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = DGD7UEY7KQ;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = DGD7UEY7KQ;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -507,6 +508,7 @@
 			baseConfigurationReference = AE477DC8BED7BC708395E270 /* Pods-TillhubPointOfSaleSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DGD7UEY7KQ;
 				INFOPLIST_FILE = TillhubPointOfSaleSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -522,6 +524,7 @@
 			baseConfigurationReference = 455C20F3BCADEB34DBA59DCB /* Pods-TillhubPointOfSaleSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DGD7UEY7KQ;
 				INFOPLIST_FILE = TillhubPointOfSaleSDK/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -536,6 +539,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1896DA41A6F8F07194E43618 /* Pods-TillhubPointOfSaleSDK_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = DGD7UEY7KQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -558,6 +562,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4BA761458282254E90B8420C /* Pods-TillhubPointOfSaleSDK_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = DGD7UEY7KQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
