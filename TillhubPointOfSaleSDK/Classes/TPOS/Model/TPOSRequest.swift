@@ -31,46 +31,60 @@ public struct TPOSRequest<T: Codable>: Codable {
 public struct TPOSRequestHeader: Codable {
     
     /// The SDK version will be filled automatically by getting it from the pod's bundle
-    private let sdkVersion: String
+    public let sdkVersion: String
     
     /// The Tillhub user account UUID, mandatory
     public let clientID: String
     
     /// One of the available TillhubPointOfSaleSDK request types (e.g. loadCart or checkoutCart), madatory
-    public var type: TPOSRequestType
+    public let type: TPOSRequestType
     
-    /// An optional callback url, if present the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
-    public var callbackUrl: URL?
+    /// If present, the TillhubPointOfSaleSDK result will contain this for reference
+    public let identifier: String?
+    
+    /// If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
+    public let callbackUrl: URL?
     
     /// If true the Tillhub application will send results to the callback URL
     /// after finishing the intended process without manual triggers from the cashier
-    public var autoReturn: Bool?
+    public let autoReturn: Bool?
     
     /// An optional note that can be used for any kind of display
-    public var note: String?
+    public let comment: String?
     
     /// The designated initializer for a TillhubPointOfSaleSDK request-header
     ///
     /// - Parameters:
     ///   - clientID: The Tillhub user account UUID, mandatory
     ///   - type: One of the available TillhubPointOfSaleSDK request types (e.g. loadCart or checkoutCart), madatory
-    ///   - callbackUrl: An optional callback url, if present the Tillhub application will send the response there
+    ///   - identifier: If present, the TillhubPointOfSaleSDK result will contain this for reference
+    ///   - callbackUrl: If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
     ///   - autoReturn: If a cashier action is needed to trigger a response
-    ///   - note: An optional note that can be used for any kind of display
+    ///   - comment: An optional note that can be used for any kind of display
     public init(clientID: String,
                 type: TPOSRequestType,
+                identifier: String? = nil,
                 callbackUrl: URL? = nil,
                 autoReturn: Bool? = false,
-                note: String? = nil) {
-        if let version = Bundle(identifier: "org.cocoapods.TillhubPointOfSaleSDK")?.infoDictionary?["CFBundleShortVersionString"] as? String {
-            sdkVersion = version
-        } else {
-            sdkVersion = "unspecified"
-        }
+                comment: String? = nil) throws {
+        self.sdkVersion = TPOSRequestHeader.podVersion
         self.clientID = clientID
         self.type = type
+        self.identifier = identifier
         self.callbackUrl = callbackUrl
         self.autoReturn = autoReturn
-        self.note = note
+        self.comment = comment
     }
+}
+
+// MARK: - Extension to get the version by the pod
+fileprivate extension TPOSRequestHeader {
+    private struct Constants {
+        static let identifier = "org.cocoapods.TillhubPointOfSaleSDK"
+        static let version = "CFBundleShortVersionString"
+        static let unspecified = "unspecified"
+    }
+    static var podVersion: String = {
+        return Bundle(identifier: Constants.identifier)?.infoDictionary?[Constants.version] as? String ?? Constants.unspecified
+    }()
 }
