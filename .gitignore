@@ -174,3 +174,8 @@ Example/Pods/Target Support Files/Quick/Quick-prefix.pch
 Example/Pods/Target Support Files/Quick/Quick-umbrella.h
 Example/Pods/Target Support Files/Quick/Quick.modulemap
 Example/Pods/Target Support Files/Quick/Quick.xcconfig
+Example/Pods/Nimble/Sources/Nimble/Matchers/Async.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/ElementsEqual.swift
+Example/Pods/Nimble/Sources/Nimble/Matchers/SatisfyAllOf.swift
+Example/Pods/Nimble/Sources/Nimble/Utils/Await.swift
+Example/Pods/Quick/Sources/Quick/String+C99ExtendedIdentifier.swift
