@@ -19,8 +19,7 @@ public enum TPOSRequestError: Error {
     case urlDecodingError
 }
 
-
-// MARK: - Extensions for serialization
+// MARK: - Extensions for serialization (used by external applications)
 extension TPOSRequest {
 
     /// Creates a deep link URL from a TPOSRequest
@@ -35,15 +34,19 @@ extension TPOSRequest {
 
         var components = URLComponents()
         components.scheme = TPOS.Url.scheme
-        components.host = TPOS.Url.host
-        components.path = TPOS.Url.path
-        components.queryItems = [URLQueryItem(name: TPOS.Url.query,
+        components.host = header.payloadType.rawValue
+        components.path = header.actionType.rawValue
+        components.queryItems = [URLQueryItem(name: TPOS.Url.requestQuery,
                                               value: json.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))]
         
         guard let url = components.url else { throw TPOSRequestError.urlEncodingError }
         
         return url
     }
+}
+
+// MARK: - Extensions for de-serialization (used by Tillhub)
+extension TPOSRequest {
     
     /// Initializer from existing URL
     ///
@@ -52,9 +55,7 @@ extension TPOSRequest {
     public init(url: URL) throws {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
             components.scheme == TPOS.Url.scheme,
-            components.host == TPOS.Url.host,
-            components.path == TPOS.Url.path,
-            let json = components.queryItems?.filter({ $0.name == TPOS.Url.query }).first?.value?.removingPercentEncoding else {
+            let json = components.queryItems?.filter({ $0.name == TPOS.Url.requestQuery }).first?.value?.removingPercentEncoding else {
                 throw TPOSRequestError.urlDecodingError
         }
         guard let data = json.data(using: .utf8) else { throw TPOSRequestError.decodingError }

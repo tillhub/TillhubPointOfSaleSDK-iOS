@@ -7,14 +7,6 @@
 
 import Foundation
 
-/// Various cart errors
-///
-/// - currencyIsoCode: discount value was negative
-/// - relativeValueOutOfRange: discount value is not in [0.0, 1.0]
-public enum TPOSCartError: Error {
-    case currencyIsoCodeLengthViolation
-}
-
 /// Payload object for a cart (Sale template)
 public struct TPOSCart: Codable {
     
@@ -69,7 +61,7 @@ public struct TPOSCart: Codable {
                  comment: String? = nil,
                  customer: TPOSCustomer? = nil,
                  cashier: TPOSStaff? = nil) throws {
-        guard currency.count == 3 else { throw TPOSCartError.currencyIsoCodeLengthViolation }
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeError }
         self.currency = currency
         self.taxType = taxType
         self.items = items

@@ -10,11 +10,20 @@ import Foundation
 
 /// Possible request types for the Tillhub application
 ///
-/// - loadCart: load a cart by cart- or cart-reference-payload, cashier checks out manually
-/// - checkoutCart: load a cart by cart- or cart-reference-payload, check out automatically (manual or automatic payments via cart properties)
-public enum TPOSRequestType: String, Codable {
-    case loadCart = "load_cart"
-    case checkoutCart = "checkout_cart"
+/// - load: load a cart by cart- or cart-reference-payload, cashier checks out manually
+/// - checkout: load a cart by cart- or cart-reference-payload, check out automatically (manual or automatic payments via cart properties)
+public enum TPOSRequestActionType: String, Codable {
+    case load = "load"
+    case checkout = "checkout"
+}
+
+/// Possible payload types for the Tillhub application
+///
+/// - cart: a full cart object
+/// - cartReference: a reference description of a cart within the Tillhub environment
+public enum TPOSRequestPayloadType: String, Codable {
+    case cart = "cart"
+    case cartReference = "cart_reference"
 }
 
 /// A request to the Tillhub application (executed via deep-linking locally)
@@ -33,14 +42,20 @@ public struct TPOSRequestHeader: Codable {
     /// The SDK version will be filled automatically by getting it from the pod's bundle
     public let sdkVersion: String
     
+    /// The TillhubPointOfSaleSDK result will contain this for reference
+    public let requestId: String
+    
     /// The Tillhub user account UUID, mandatory
     public let clientID: String
     
-    /// One of the available TillhubPointOfSaleSDK request types (e.g. loadCart or checkoutCart), madatory
-    public let type: TPOSRequestType
+    /// One of the available TillhubPointOfSaleSDK request action types (e.g. load or checkout), madatory
+    public let actionType: TPOSRequestActionType
     
-    /// If present, the TillhubPointOfSaleSDK result will contain this for reference
-    public let identifier: String?
+    /// One of the available TillhubPointOfSaleSDK request payload types (e.g. cart or cartReference), madatory
+    public let payloadType: TPOSRequestPayloadType
+    
+    /// If present, the TillhubPointOfSaleSDK will mark payments etc. with this reference
+    public let customReference: String?
     
     /// If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
     public let callbackUrl: URL?
@@ -57,34 +72,25 @@ public struct TPOSRequestHeader: Codable {
     /// - Parameters:
     ///   - clientID: The Tillhub user account UUID, mandatory
     ///   - type: One of the available TillhubPointOfSaleSDK request types (e.g. loadCart or checkoutCart), madatory
-    ///   - identifier: If present, the TillhubPointOfSaleSDK result will contain this for reference
+    ///   - customReference: If present, the TillhubPointOfSaleSDK result will contain this for reference
     ///   - callbackUrl: If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
     ///   - autoReturn: If a cashier action is needed to trigger a response
     ///   - comment: An optional note that can be used for any kind of display
     public init(clientID: String,
-                type: TPOSRequestType,
-                identifier: String? = nil,
+                actionType: TPOSRequestActionType,
+                payloadType: TPOSRequestPayloadType,
+                customReference: String? = nil,
                 callbackUrl: URL? = nil,
                 autoReturn: Bool? = false,
-                comment: String? = nil) throws {
-        self.sdkVersion = TPOSRequestHeader.podVersion
+                comment: String? = nil) {
+        self.sdkVersion = TPOS.podVersion
+        self.requestId = UUID().uuidString
         self.clientID = clientID
-        self.type = type
-        self.identifier = identifier
+        self.actionType = actionType
+        self.payloadType = payloadType
+        self.customReference = customReference
         self.callbackUrl = callbackUrl
         self.autoReturn = autoReturn
         self.comment = comment
     }
-}
-
-// MARK: - Extension to get the version by the pod
-fileprivate extension TPOSRequestHeader {
-    private struct Constants {
-        static let identifier = "org.cocoapods.TillhubPointOfSaleSDK"
-        static let version = "CFBundleShortVersionString"
-        static let unspecified = "unspecified"
-    }
-    static var podVersion: String = {
-        return Bundle(identifier: Constants.identifier)?.infoDictionary?[Constants.version] as? String ?? Constants.unspecified
-    }()
 }
