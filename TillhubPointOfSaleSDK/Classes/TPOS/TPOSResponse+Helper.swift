@@ -31,17 +31,15 @@ extension TPOSResponse {
         guard let json = String(data: data, encoding: .utf8) else {
             throw TPOSResponseError.encodingError
         }
-        
-        var components = URLComponents(url: header.url, resolvingAgainstBaseURL: true)
+        guard var components = URLComponents(url: header.url, resolvingAgainstBaseURL: true) else { throw TPOSResponseError.urlEncodingError }
         let queryItem = URLQueryItem(name: TPOS.Url.responseQuery,
                                      value: json.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))
-        if components?.queryItems?.isEmpty == false {
-            components?.queryItems?.append(queryItem)
+        if components.queryItems?.isEmpty == false {
+            components.queryItems?.append(queryItem)
         } else {
-            components?.queryItems = [queryItem]
+            components.queryItems = [queryItem]
         }
-        
-        guard let url = components?.url else { throw TPOSResponseError.urlEncodingError }
+        guard let url = components.url else { throw TPOSResponseError.urlEncodingError }
         
         return url
     }

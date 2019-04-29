@@ -71,7 +71,7 @@ public struct TPOSRequestHeader: Codable {
     ///
     /// - Parameters:
     ///   - clientID: The Tillhub user account UUID, mandatory
-    ///   - type: One of the available TillhubPointOfSaleSDK request types (e.g. loadCart or checkoutCart), madatory
+    ///   - actionType: One of the available TillhubPointOfSaleSDK request types (e.g. loadCart or checkoutCart), madatory
     ///   - customReference: If present, the TillhubPointOfSaleSDK result will contain this for reference
     ///   - callbackUrl: If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
     ///   - autoReturn: If a cashier action is needed to trigger a response
