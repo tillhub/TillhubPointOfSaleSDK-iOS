@@ -8,11 +8,7 @@
 import Foundation
 
 /// Payload object for a cart (Sale template)
-public struct TPOSCart: Codable {
-    
-    /// The three letter [ISO currency](https://en.wikipedia.org/wiki/ISO_4217) of this sale, mandatory
-    /// this will be implicitely inherited by all children
-    public let currency: String
+public struct TPOSCart: TPOSRequestPayload {
     
     /// Tax scheme for the intended sale (mandatory, defaults to EU-style tax-inclusive)
     public let taxType: TPOSTaxType
@@ -52,17 +48,14 @@ public struct TPOSCart: Codable {
     ///   - customer: Customer of this cart
     ///   - cashier: Cashier/operator of the POS
     /// - Throws: throws errors on currency check
-    public init( currency: String,
-                 taxType: TPOSTaxType = .inclusive,
-                 items: [TPOSCartItem] = [],
-                 paymentIntent: TPOSPaymentIntent? = nil,
-                 customId: String? = nil,
-                 title: String? = nil,
-                 comment: String? = nil,
-                 customer: TPOSCustomer? = nil,
-                 cashier: TPOSStaff? = nil) throws {
-        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeError }
-        self.currency = currency
+    public init(taxType: TPOSTaxType = .inclusive,
+                items: [TPOSCartItem] = [],
+                paymentIntent: TPOSPaymentIntent? = nil,
+                customId: String? = nil,
+                title: String? = nil,
+                comment: String? = nil,
+                customer: TPOSCustomer? = nil,
+                cashier: TPOSStaff? = nil) throws {
         self.taxType = taxType
         self.items = items
         self.paymentIntent = paymentIntent

@@ -18,12 +18,6 @@ public struct TPOSTransaction: Codable {
     /// this will always be set by the Tillhub application itself
     public let clientTransactionId: String
     
-    /// The three letter [ISO currency](https://en.wikipedia.org/wiki/ISO_4217) of this transaction
-    public let currency: String
-    
-    /// Tax scheme for this transaction
-    public let taxType: TPOSTaxType
-    
     /// Items/positions of this transaction
     public let items: [TPOSCartItem]
     
@@ -51,7 +45,6 @@ public struct TPOSTransaction: Codable {
     ///   - transactionId: The unique transaction ID within the Tillhub environment
     ///   - clientTransactionId: The client transaction ID within the Tillhub environment
     ///   - currency: The three letter [ISO currency](https://en.wikipedia.org/wiki/ISO_4217) of this transaction
-    ///   - taxType: Tax scheme for this transaction
     ///   - items: Items/positions of this transaction
     ///   - payments: Payments of this transaction
     ///   - summary: Monetary summary information about this transaction
@@ -60,22 +53,20 @@ public struct TPOSTransaction: Codable {
     ///   - customer: Customer of this transaction
     ///   - cashier: Cashier/operator of the POS
     /// - Throws: throws errors on currency check
-    public init( transactionId: String?,
-                 clientTransactionId: String,
-                 currency: String,
-                 taxType: TPOSTaxType,
-                 items: [TPOSCartItem] = [],
-                 payments: [TPOSPayment] = [],
-                 summary: TPOSTransactionSummary? = nil,
-                 title: String? = nil,
-                 comment: String? = nil,
-                 customer: TPOSCustomer? = nil,
-                 cashier: TPOSStaff? = nil) throws {
-        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeError }
+    public init(transactionId: String?,
+                clientTransactionId: String,
+                currency: String,
+                taxType: TPOSTaxType,
+                items: [TPOSCartItem] = [],
+                payments: [TPOSPayment] = [],
+                summary: TPOSTransactionSummary? = nil,
+                title: String? = nil,
+                comment: String? = nil,
+                customer: TPOSCustomer? = nil,
+                cashier: TPOSStaff? = nil) throws {
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeNotFound }
         self.transactionId = transactionId
         self.clientTransactionId = clientTransactionId
-        self.currency = currency
-        self.taxType = taxType
         self.items = items
         self.payments = payments
         self.summary = summary

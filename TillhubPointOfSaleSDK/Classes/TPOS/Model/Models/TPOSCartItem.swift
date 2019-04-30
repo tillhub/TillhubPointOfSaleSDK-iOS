@@ -41,6 +41,10 @@ public struct TPOSCartItem: Codable {
     /// Product UUID within the Tillhub environment, mandatory
     public let productId: String
     
+    /// The three letter [ISO currency](https://en.wikipedia.org/wiki/ISO_4217) of this item's price, mandatory
+    /// this will be implicitely inherited by all children
+    public let currency: String
+    
     /// The price of this item per quantity 1.0 (before discounts, before taxes if TPOSCart.taxType == .exclusive), mandatory
     public let pricePerUnit: Decimal
     
@@ -58,9 +62,7 @@ public struct TPOSCartItem: Codable {
     
     /// All discounts applied to this specific item
     public let discounts: [TPOSCartItemDiscount]?
-    
-    // MARK: - Public initializer
-    
+
     /// Designated initializer for a cart item within a TPOSCart
     ///
     /// - Parameters:
@@ -73,10 +75,11 @@ public struct TPOSCartItem: Codable {
     ///   - comment: An arbitrary note for this position (e.g. product detail description)
     ///   - salesPerson: If present, this describes the salesperson for this item (e.g. for commission)
     ///   - discounts: All discounts applied to this specific item
-    /// - Throws: range violation errors for pricePerUnit and vatRate, validation errors for productId
+    /// - Throws: currency checks, range violation errors for pricePerUnit and vatRate, validation errors for productId
     public init(type: TPOSCartItemType = .item,
                 quantity: Decimal = 1.0,
                 productId: String,
+                currency: String,
                 pricePerUnit: Decimal,
                 vatRate: Decimal,
                 title: String? = nil,
@@ -84,8 +87,10 @@ public struct TPOSCartItem: Codable {
                 salesPerson: TPOSStaff? = nil,
                 discounts: [TPOSCartItemDiscount]? = nil) throws {
         guard UUID(uuidString: productId) != nil else { throw TPOSCartItemError.productIdInvalid }
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeNotFound }
         guard 0.0 <= pricePerUnit else { throw TPOSCartItemError.pricePerUnitNegative }
         guard 0.0 <= vatRate, vatRate <= 1.0 else { throw TPOSCartItemError.vatRateOutOfRange }
+        self.currency = currency
         self.type = type
         self.quantity = quantity
         self.productId = productId

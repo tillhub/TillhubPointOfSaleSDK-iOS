@@ -20,6 +20,17 @@ public struct TPOSResponse: Codable {
     
     /// Information about the resulting transaction within the Tillhub environment
     public var payload: TPOSTransaction?
+    
+    /// Designated initializer
+    ///
+    /// - Parameters:
+    ///   - header: Describes general response parameters (e.g. status, url etc.)
+    ///   - payload: Information about the resulting transaction within the Tillhub environment
+    public init(header: TPOSResponseHeader,
+                payload: TPOSTransaction?) {
+        self.header = header
+        self.payload = payload
+    }
 }
 
 /// Mandatory header for a TillhubPointOfSaleSDK response
@@ -51,7 +62,7 @@ public struct TPOSResponseHeader: Codable {
     ///   - comment: An optional comment
     public init(requestId: String,
                 url: URL,
-                error: LocalizedError? = nil,
+                error: Error? = nil,
                 comment: String? = nil) {
         self.sdkVersion = TPOS.podVersion
         self.requestId = requestId

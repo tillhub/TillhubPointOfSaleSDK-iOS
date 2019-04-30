@@ -10,6 +10,9 @@ import Foundation
 /// Monetary summary information about a TPOSTransaction
 public struct TPOSTransactionSummary: Codable {
     
+    /// The three letter [ISO currency](https://en.wikipedia.org/wiki/ISO_4217) of this transaction
+    public let currency: String
+    
     /// The total payable amount, including taxes
     public let amountTotalGross: Decimal
     
@@ -33,12 +36,13 @@ public struct TPOSTransactionSummary: Codable {
     public let paymentAmountTotal: Decimal
     
     /// The total amount of change given back to the customer
-    /// paymentAmountTotal - amountTotalGross
+    /// changeAmountTotal = paymentAmountTotal - amountTotalGross
     public let changeAmountTotal: Decimal
     
     /// Designated initializer for a transaction summary
     ///
     /// - Parameters:
+    ///   - currency: The three letter [ISO currency](https://en.wikipedia.org/wiki/ISO_4217) of this transaction
     ///   - amountTotalGross: The total payable amount, including taxes
     ///   - amountTotalNet: The total amount excluding taxes
     ///   - subTotal: The total value of the transaction before discounts
@@ -47,14 +51,17 @@ public struct TPOSTransactionSummary: Codable {
     ///   - tipAmountTotal: The total amount of tips included in this transaction
     ///   - paymentAmountTotal: The total amount of all payments (including tips, before change)
     ///   - changeAmountTotal: The total amount of change given back to the customer
-    public init( amountTotalGross: Decimal,
-                 amountTotalNet: Decimal = 0.0,
-                 subTotal: Decimal = 0.0,
-                 discountAmountTotal: Decimal = 0.0,
-                 taxAmountTotal: Decimal = 0.0,
-                 tipAmountTotal: Decimal = 0.0,
-                 paymentAmountTotal: Decimal = 0.0,
-                 changeAmountTotal: Decimal = 0.0 ) {
+    public init(currency: String,
+                amountTotalGross: Decimal,
+                amountTotalNet: Decimal = 0.0,
+                subTotal: Decimal = 0.0,
+                discountAmountTotal: Decimal = 0.0,
+                taxAmountTotal: Decimal = 0.0,
+                tipAmountTotal: Decimal = 0.0,
+                paymentAmountTotal: Decimal = 0.0,
+                changeAmountTotal: Decimal = 0.0 ) throws {
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeNotFound }
+        self.currency = currency
         self.amountTotalGross = amountTotalGross
         self.amountTotalNet = amountTotalNet
         self.subTotal = subTotal

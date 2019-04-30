@@ -17,7 +17,7 @@ public enum TPOSCartReferenceError: Error {
 }
 
 /// Description of a cart created with the Tillhub Carts API
-public struct TPOSCartReference: Codable {
+public struct TPOSCartReference: TPOSRequestPayload {
     
     /// The UUID of that cart object within the Tillhub environment
     public var cartId: String

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// Constraints for request payloads, might
+public protocol TPOSRequestPayload: Codable {}
+
 /// Possible request types for the Tillhub application
 ///
 /// - load: load a cart by cart- or cart-reference-payload, cashier checks out manually
@@ -27,13 +30,24 @@ public enum TPOSRequestPayloadType: String, Codable {
 }
 
 /// A request to the Tillhub application (executed via deep-linking locally)
-public struct TPOSRequest<T: Codable>: Codable {
+public struct TPOSRequest<T: TPOSRequestPayload>: Codable {
     
     /// Describes general behavior and properties (e.g. account, callback etc.)
     public var header: TPOSRequestHeader
     
     /// Dynamic payload (currently a stand-alone-cart or a reference to a cart within the Tillhub environment)
     public var payload: T
+    
+    /// Designated initializer
+    ///
+    /// - Parameters:
+    ///   - header: Describes general behavior and properties (e.g. account, callback etc.)
+    ///   - payload: Dynamic payload (currently a stand-alone-cart or a reference to a cart within the Tillhub environment)
+    public init(header: TPOSRequestHeader,
+                payload: T) {
+        self.header = header
+        self.payload = payload
+    }
 }
 
 /// Mandatory header for a TillhubPointOfSaleSDK request

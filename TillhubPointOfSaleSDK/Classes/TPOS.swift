@@ -7,11 +7,14 @@
 
 import Foundation
 
+public typealias ResultCompletion<T> = (_ result: Result<T, Error>) -> ()
+
 public enum TPOSError: Error {
     case requestActionTypeDecoding
     case requestPayloadTypeDecoding
-    case urlScheme
-    case currencyIsoCodeError
+    case urlSchemeMissingFromApplication
+    case currencyIsoCodeNotFound
+    case urlNotOpened
 }
 
 public class TPOS {
@@ -28,14 +31,20 @@ extension TPOS {
 
     static public func canPerform<T: Codable>(request: TPOSRequest<T>) throws -> Bool {
         guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(Url.scheme) == true else {
-            throw TPOSError.urlScheme
+            throw TPOSError.urlSchemeMissingFromApplication
         }
         return UIApplication.shared.canOpenURL(try request.url())
     }
 
-    static public func perform<T: Codable>(request: TPOSRequest<T>, completion: @escaping ((Bool) -> ())) throws {
-        if try TPOS.canPerform(request: request) {
-            UIApplication.shared.open(try request.url(), options: [:], completionHandler: completion)
+    static public func perform<T: Codable>(request: TPOSRequest<T>, completion: ResultCompletion<Bool>?) {
+        do {
+            if try TPOS.canPerform(request: request) {
+                UIApplication.shared.open(try request.url(), options: [:]) { (success) in
+                    success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
+                }
+            }
+        } catch let error {
+            completion?(.failure(error))
         }
     }
 }
@@ -72,14 +81,20 @@ extension TPOS {
     static public func canPerform(response: TPOSResponse) throws -> Bool {
         guard let scheme = URLComponents(url: response.header.url, resolvingAgainstBaseURL: true)?.scheme,
             (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(scheme) == true else {
-                throw TPOSError.urlScheme
+                throw TPOSError.urlSchemeMissingFromApplication
         }
         return UIApplication.shared.canOpenURL(response.header.url)
     }
 
-    static public func perform(response: TPOSResponse, completion: @escaping ((Bool) -> ())) throws {
-        if try TPOS.canPerform(response: response) {
-            UIApplication.shared.open(try response.url(), options: [:], completionHandler: completion)
+    static public func perform(response: TPOSResponse, completion: ResultCompletion<Bool>?) {
+        do {
+            if try TPOS.canPerform(response: response) {
+                UIApplication.shared.open(try response.url(), options: [:]) { (success) in
+                    success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
+                }
+            }
+        } catch let error {
+            completion?(.failure(error))
         }
     }
 }
