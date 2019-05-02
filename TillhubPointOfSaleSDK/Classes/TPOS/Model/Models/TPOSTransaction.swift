@@ -56,7 +56,6 @@ public struct TPOSTransaction: Codable {
     public init(transactionId: String?,
                 clientTransactionId: String,
                 currency: String,
-                taxType: TPOSTaxType,
                 items: [TPOSCartItem] = [],
                 payments: [TPOSPayment] = [],
                 summary: TPOSTransactionSummary? = nil,

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TillhubPointOfSaleSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,23 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        let url = URL(string: "https://staging-dashboard.tillhub.com/reports/financial_accounting/transactions")
-
-        if let payloadType = try? TPOS.requestPayloadType(url: url!) {
-            switch payloadType {
-            case .cart:
-                if let cartRequest = try? TPOSRequest<TPOSCart>(url: url!) {
-                    print("cartRequest: \(cartRequest)")
-                }
-            case .cartReference:
-                if let cartReferenceRequest = try? TPOSRequest<TPOSCartReference>(url: url!) {
-                    print("cartReferenceRequest: \(cartReferenceRequest)")
-                }
-            }
-
-        }
-        
         return true
     }
 
