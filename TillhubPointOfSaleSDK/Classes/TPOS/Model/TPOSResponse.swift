@@ -7,6 +7,10 @@
 
 import Foundation
 
+/// Overall status of a response from within Tillhub
+///
+/// - success: the requested action was performed successfully
+/// - failure: the requested action failed
 public enum TPOSResponsStatus: String, Codable {
     case success = "success"
     case failure = "failure"

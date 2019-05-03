@@ -63,7 +63,7 @@ public struct TPOSTransaction: Codable {
                 comment: String? = nil,
                 customer: TPOSCustomer? = nil,
                 cashier: TPOSStaff? = nil) throws {
-        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeNotFound }
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSPayloadError.currencyIsoCodeNotFound }
         self.transactionId = transactionId
         self.clientTransactionId = clientTransactionId
         self.items = items

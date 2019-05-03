@@ -32,7 +32,7 @@ public struct TPOSPayment: Codable {
                 currency: String,
                 amountTotal: Decimal,
                 amountTip: Decimal? = nil ) throws {
-        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeNotFound }
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSPayloadError.currencyIsoCodeNotFound }
         self.type = type
         self.currency = currency
         self.amountTotal = amountTotal

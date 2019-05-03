@@ -87,7 +87,7 @@ public struct TPOSCartItem: Codable {
                 salesPerson: TPOSStaff? = nil,
                 discounts: [TPOSCartItemDiscount]? = nil) throws {
         guard UUID(uuidString: productId) != nil else { throw TPOSCartItemError.productIdInvalid }
-        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeNotFound }
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSPayloadError.currencyIsoCodeNotFound }
         guard 0.0 <= pricePerUnit else { throw TPOSCartItemError.pricePerUnitNegative }
         guard 0.0 <= vatRate, vatRate <= 1.0 else { throw TPOSCartItemError.vatRateOutOfRange }
         self.currency = currency

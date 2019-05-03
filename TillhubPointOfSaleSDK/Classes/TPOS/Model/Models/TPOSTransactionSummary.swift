@@ -60,7 +60,7 @@ public struct TPOSTransactionSummary: Codable {
                 tipAmountTotal: Decimal = 0.0,
                 paymentAmountTotal: Decimal = 0.0,
                 changeAmountTotal: Decimal = 0.0 ) throws {
-        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSError.currencyIsoCodeNotFound }
+        guard Locale.isoCurrencyCodes.contains(currency) else { throw TPOSPayloadError.currencyIsoCodeNotFound }
         self.currency = currency
         self.amountTotalGross = amountTotalGross
         self.amountTotalNet = amountTotalNet

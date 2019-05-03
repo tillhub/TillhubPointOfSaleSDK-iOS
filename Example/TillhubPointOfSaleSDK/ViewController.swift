@@ -102,9 +102,9 @@ class ViewController: UIViewController {
                                        comment: "testing custom callback")
         
         let cartItem1 = try TPOSCartItem(productId: "c23405ff-54b2-4353-9797-e8c5328d213b",
-                                     currency: "EUR",
-                                     pricePerUnit: 99.95,
-                                     vatRate: 0.19)
+                                         currency: "EUR",
+                                         pricePerUnit: 99.95,
+                                         vatRate: 0.19)
         let cartItem2 = try TPOSCartItem(productId: "4fa256e2-432e-4e2e-bffc-a9f33a9a848c",
                                          currency: "EUR",
                                          pricePerUnit: 4.10,
@@ -112,13 +112,13 @@ class ViewController: UIViewController {
         
         let cart = try TPOSCart(taxType: .inclusive,
                                 items: [cartItem1, cartItem2],
-                                paymentIntent: try TPOSPaymentIntent(allowedTypes: [.cash], paymentId: nil, automatic: true),
+                                paymentIntent: TPOSPaymentIntent(),
                                 customId: "TPOS test cart request 0001",
                                 title: "Cart Title 01",
                                 comment: "m@n instant checkout",
                                 customer: TPOSCustomer(name: "Anja Krüger", customId: "000432001"),
                                 cashier: TPOSStaff(name: "Hans Meyer", customId: "c_sdj_234"))
-        return TPOSRequest.init(header: header, payload: cart)
+        return TPOSRequest(header: header, payload: cart)
     }
     
     private func createCartReferenceRequest() throws -> TPOSRequest<TPOSCartReference> {
@@ -130,8 +130,8 @@ class ViewController: UIViewController {
                                        comment: "testing custom ref callback")
         let cartReference = try TPOSCartReference(cartId: "53476a5a-38e1-4c91-b415-17b00194861d",
                                                   branchId: "af03b5da-3bd2-439b-bdf8-fbf7e0515137",
-                                                  paymentIntent: try TPOSPaymentIntent(allowedTypes: [.card], paymentId: nil, automatic: true))
-        return TPOSRequest.init(header: header, payload: cartReference)
+                                                  paymentIntent: TPOSPaymentIntent(allowedTypes: [.card], automaticType: .automaticCash))
+        return TPOSRequest(header: header, payload: cartReference)
     }
 }
 
