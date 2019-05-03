@@ -14,6 +14,7 @@ public enum TPOSError: LocalizedError {
     case requestPayloadTypeDecoding
     case applicationQueriesSchemeMissingFromApplication
     case currencyIsoCodeNotFound
+    case cantOpenUrl
     case urlNotOpened
     
     public var errorDescription: String? {
@@ -24,7 +25,7 @@ public enum TPOSError: LocalizedError {
 public class TPOS {
 
     public struct Url {
-        static let scheme = "TillhubPointOfSaleSDK"
+        static let scheme = "tillhub"
         static let requestQuery = "request"
         static let responseQuery = "response"
     }
@@ -33,20 +34,26 @@ public class TPOS {
 // MARK: - External application -> Tillhub
 extension TPOS {
 
-    static public func canPerform<T: Codable>(request: TPOSRequest<T>) throws -> Bool {
-        guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(Url.scheme) == true else {
-            throw TPOSError.applicationQueriesSchemeMissingFromApplication
-        }
-        let url = try request.url()
-        return UIApplication.shared.canOpenURL(url)
-    }
-
-    static public func perform<T: Codable>(request: TPOSRequest<T>, completion: ResultCompletion<Bool>?) {
+    static public func perform<T: Codable>(request: TPOSRequest<T>, testUrl: Bool = false, completion: ResultCompletion<Bool>?) {
         do {
-            if try TPOS.canPerform(request: request) {
-                UIApplication.shared.open(try request.url(), options: [:]) { (success) in
-                    success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
+            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(Url.scheme) == true else {
+                throw TPOSError.applicationQueriesSchemeMissingFromApplication
+            }
+            let url = try request.url()
+            guard UIApplication.shared.canOpenURL(url) else {
+                throw TPOSError.cantOpenUrl
+            }
+            if testUrl {
+                let payloadType = try requestPayloadType(url: url)
+                switch payloadType {
+                case .cart:
+                    _ = try TPOSRequest<TPOSCart>(url: url)
+                case .cartReference:
+                    _ = try TPOSRequest<TPOSCartReference>(url: url)
                 }
+            }
+            UIApplication.shared.open(url, options: [:]) { (success) in
+                success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
             }
         } catch let error {
             completion?(.failure(error))
@@ -63,10 +70,6 @@ extension TPOS {
         static let unspecified = "unspecified"
     }
     
-    static var podVersion: String = {
-        return Bundle(identifier: Constants.identifier)?.infoDictionary?[Constants.version] as? String ?? Constants.unspecified
-    }()
-    
     static public func requestPayloadType(url: URL) throws -> TPOSRequestPayloadType {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true), let host = components.host else {
             throw TPOSRequestError.urlDecodingError
@@ -82,24 +85,29 @@ extension TPOS {
         guard let requestActionPath = TPOSRequestActionPath(rawValue: components.path) else { throw TPOSError.requestActionPathDecoding }
         return requestActionPath
     }
-    
-    static public func canPerform(response: TPOSResponse) throws -> Bool {
-        guard let scheme = URLComponents(url: response.header.url, resolvingAgainstBaseURL: true)?.scheme,
-            (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(scheme) == true else {
-                throw TPOSError.applicationQueriesSchemeMissingFromApplication
-        }
-        return UIApplication.shared.canOpenURL(response.header.url)
-    }
 
-    static public func perform(response: TPOSResponse, completion: ResultCompletion<Bool>?) {
+    static public func perform(response: TPOSResponse, testUrl: Bool = false, completion: ResultCompletion<Bool>?) {
         do {
-            if try TPOS.canPerform(response: response) {
-                UIApplication.shared.open(try response.url(), options: [:]) { (success) in
-                    success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
-                }
+            guard let scheme = URLComponents(url: response.header.url, resolvingAgainstBaseURL: true)?.scheme,
+                (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(scheme) == true else {
+                    throw TPOSError.applicationQueriesSchemeMissingFromApplication
+            }
+            let url = try response.url()
+            guard UIApplication.shared.canOpenURL(url) else {
+                throw TPOSError.cantOpenUrl
+            }
+            if testUrl {
+                _ = try TPOSResponse.init(url: url)
+            }
+            UIApplication.shared.open(url, options: [:]) { (success) in
+                success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
             }
         } catch let error {
             completion?(.failure(error))
         }
     }
+    
+    static var podVersion: String = {
+        return Bundle(identifier: Constants.identifier)?.infoDictionary?[Constants.version] as? String ?? Constants.unspecified
+    }()
 }

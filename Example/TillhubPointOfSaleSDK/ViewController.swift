@@ -64,16 +64,14 @@ class ViewController: UIViewController {
     private func sendCartRequest(completion: @escaping ResultCompletion<String>) {
         do {
             let cartRequest = try createCartRequest()
-            if try TPOS.canPerform(request: cartRequest) {
-                TPOS.perform(request: cartRequest, completion: { (result) in
-                    switch result {
-                    case .success(_):
-                        completion(.success("\(cartRequest)"))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                })
-            }
+            TPOS.perform(request: cartRequest, testUrl: true, completion: { (result) in
+                switch result {
+                case .success(_):
+                    completion(.success("\(cartRequest)"))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            })
         } catch let error {
             completion(.failure(error))
         }
@@ -82,16 +80,14 @@ class ViewController: UIViewController {
     private func sendCartReferenceRequest(completion: @escaping ResultCompletion<String>) {
         do {
             let cartReferenceRequest = try createCartReferenceRequest()
-            if try TPOS.canPerform(request: cartReferenceRequest) {
-                TPOS.perform(request: cartReferenceRequest, completion: { (result) in
-                    switch result {
-                    case .success(_):
-                        completion(.success("\(cartReferenceRequest)"))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                })
-            }
+            TPOS.perform(request: cartReferenceRequest, testUrl: true, completion: { (result) in
+                switch result {
+                case .success(_):
+                    completion(.success("\(cartReferenceRequest)"))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            })
         } catch let error {
             completion(.failure(error))
         }
@@ -100,7 +96,10 @@ class ViewController: UIViewController {
     private func createCartRequest() throws -> TPOSRequest<TPOSCart> {
         let header = TPOSRequestHeader(clientID: "d850c442-66ac-44dc-aaa0-37b051dbae5e",
                                        actionType: .checkout,
-                                       payloadType: .cart)
+                                       payloadType: .cart,
+                                       callbackUrl: URL(string: "TillhubPointOfSaleSDKExample://custom/cart/response"),
+                                       autoReturn: true,
+                                       comment: "testing custom callback")
         
         let cartItem1 = try TPOSCartItem(productId: "c23405ff-54b2-4353-9797-e8c5328d213b",
                                      currency: "EUR",
@@ -125,7 +124,10 @@ class ViewController: UIViewController {
     private func createCartReferenceRequest() throws -> TPOSRequest<TPOSCartReference> {
         let header = TPOSRequestHeader(clientID: "d850c442-66ac-44dc-aaa0-37b051dbae5e",
                                        actionType: .load,
-                                       payloadType: .cartReference)
+                                       payloadType: .cartReference,
+                                       callbackUrl: URL(string: "TillhubPointOfSaleSDKExample://custom/cart/reference/response"),
+                                       autoReturn: true,
+                                       comment: "testing custom ref callback")
         let cartReference = try TPOSCartReference(cartId: "53476a5a-38e1-4c91-b415-17b00194861d",
                                                   branchId: "af03b5da-3bd2-439b-bdf8-fbf7e0515137",
                                                   paymentIntent: try TPOSPaymentIntent(allowedTypes: [.card], paymentId: nil, automatic: true))

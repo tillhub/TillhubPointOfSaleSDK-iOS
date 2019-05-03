@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Constraints for request payloads, might
+/// Constraints for request payloads, might get additional functionality
 public protocol TPOSRequestPayload: Codable {}
 
 /// Possible request types for the Tillhub application
