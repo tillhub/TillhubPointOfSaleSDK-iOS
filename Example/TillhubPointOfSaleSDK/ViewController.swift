@@ -34,9 +34,9 @@ class ViewController: UIViewController, TPOSMangerResponseDelegate {
             strongSelf.sendRequestButton.isEnabled = true
             switch result {
             case .success(let text):
-                strongSelf.logTextView.text.append("REQUEST SUCCESS:\n\n\(text)")
+                strongSelf.logTextView.text.append("REQUEST SUCCESS:\n\n\(text)\n\n")
             case .failure(let error):
-                strongSelf.logTextView.text.append("REQUEST FAILURE:\n\n\(error.localizedDescription)")
+                strongSelf.logTextView.text.append("REQUEST FAILURE:\n\n\(error.localizedDescription)\n\n")
             }
         }
     }
@@ -46,9 +46,9 @@ class ViewController: UIViewController, TPOSMangerResponseDelegate {
     func responseReceived(result: Result<String, Error>) {
         switch result {
         case .success(let text):
-            logTextView.text.append("RESPONSE SUCCESS:\n\n\(text)")
+            logTextView.text.append("RESPONSE SUCCESS:\n\n\(text)\n\n")
         case .failure(let error):
-            logTextView.text.append("RESPONSE FAILURE:\n\n\(error.localizedDescription)")
+            logTextView.text.append("RESPONSE FAILURE:\n\n\(error.localizedDescription)\n\n")
         }
     }
     

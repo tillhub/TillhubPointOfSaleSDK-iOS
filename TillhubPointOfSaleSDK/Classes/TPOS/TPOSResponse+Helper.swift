@@ -23,6 +23,7 @@ public enum TPOSResponseError: Error {
 extension TPOSResponse {
     
     /// Creates a deep link URL from a TPOSResponse
+    /// - only the query items are added to the TPOSRequest.header.callbackUrl
     ///
     /// - Returns: deep link URL to call from the Tillhub application
     /// - Throws: encoding errors (JSON, URL)
@@ -31,7 +32,12 @@ extension TPOSResponse {
         guard let json = String(data: data, encoding: .utf8) else {
             throw TPOSResponseError.encodingError
         }
-        guard var components = URLComponents(url: header.url, resolvingAgainstBaseURL: true) else { throw TPOSResponseError.urlEncodingError }
+
+        var components = URLComponents()
+        components.scheme = header.urlScheme
+        components.host = TPOS.Url.host
+        components.path = "/\(header.requestActionPath.rawValue)/\(header.requestPayloadType.rawValue)"
+        
         let queryItem = URLQueryItem(name: TPOS.Url.responseQuery,
                                      value: json.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))
         if components.queryItems?.isEmpty == false {
@@ -45,7 +51,7 @@ extension TPOSResponse {
     }
 }
 
-// MARK: - Extensions for de-serialization (used by external applications)
+// MARK: - Extensions for de-serialization (can be used by external applications)
 extension TPOSResponse {
     /// Initializer from existing URL
     ///

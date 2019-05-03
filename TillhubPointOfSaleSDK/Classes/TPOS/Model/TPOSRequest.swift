@@ -16,8 +16,8 @@ public protocol TPOSRequestPayload: Codable {}
 /// - load: load a cart by cart- or cart-reference-payload, cashier checks out manually
 /// - checkout: load a cart by cart- or cart-reference-payload, check out automatically (manual or automatic payments via cart properties)
 public enum TPOSRequestActionPath: String, Codable {
-    case load = "/load"
-    case checkout = "/checkout"
+    case load = "load"
+    case checkout = "checkout"
 }
 
 /// Possible payload types for the Tillhub application
@@ -62,17 +62,17 @@ public struct TPOSRequestHeader: Codable {
     /// The Tillhub user account UUID, mandatory
     public let clientID: String
     
-    /// One of the available TillhubPointOfSaleSDK request action types (e.g. load or checkout), madatory
-    public let actionType: TPOSRequestActionPath
+    /// One of the available TillhubPointOfSaleSDK request action paths (e.g. /load or /checkout), madatory
+    public let actionPath: TPOSRequestActionPath
     
     /// One of the available TillhubPointOfSaleSDK request payload types (e.g. cart or cartReference), madatory
     public let payloadType: TPOSRequestPayloadType
     
+    /// The Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
+    public let callbackUrlScheme: String
+    
     /// If present, the TillhubPointOfSaleSDK will mark payments etc. with this reference
     public let customReference: String?
-    
-    /// If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
-    public let callbackUrl: URL?
     
     /// If true the Tillhub application will send results to the callback URL
     /// after finishing the intended process without manual triggers from the cashier
@@ -85,25 +85,25 @@ public struct TPOSRequestHeader: Codable {
     ///
     /// - Parameters:
     ///   - clientID: The Tillhub user account UUID, mandatory
-    ///   - actionType: One of the available TillhubPointOfSaleSDK request types (e.g. loadCart or checkoutCart), madatory
+    ///   - actionPath: One of the available TillhubPointOfSaleSDK request paths (e.g. /loadCart or /checkoutCart), madatory
     ///   - customReference: If present, the TillhubPointOfSaleSDK result will contain this for reference
-    ///   - callbackUrl: If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
+    ///   - callbackUrlScheme: If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
     ///   - autoReturn: If a cashier action is needed to trigger a response
     ///   - comment: An optional note that can be used for any kind of display
     public init(clientID: String,
-                actionType: TPOSRequestActionPath,
+                actionPath: TPOSRequestActionPath,
                 payloadType: TPOSRequestPayloadType,
+                callbackUrlScheme: String,
                 customReference: String? = nil,
-                callbackUrl: URL? = nil,
                 autoReturn: Bool? = false,
                 comment: String? = nil) {
         self.sdkVersion = TPOS.podVersion
         self.requestId = UUID().uuidString
         self.clientID = clientID
-        self.actionType = actionType
+        self.actionPath = actionPath
         self.payloadType = payloadType
+        self.callbackUrlScheme = callbackUrlScheme
         self.customReference = customReference
-        self.callbackUrl = callbackUrl
         self.autoReturn = autoReturn
         self.comment = comment
     }

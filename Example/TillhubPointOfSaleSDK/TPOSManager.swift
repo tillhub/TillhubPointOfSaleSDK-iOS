@@ -9,6 +9,12 @@
 import Foundation
 import TillhubPointOfSaleSDK
 
+enum TPOSManagerError: LocalizedError {
+    case urlTypes
+    case urlScheme
+    case url
+}
+
 protocol TPOSMangerResponseDelegate {
     func responseReceived(result: Result<String, Error>)
 }
@@ -21,8 +27,14 @@ class TPOSManager {
     
     var delegate: TPOSMangerResponseDelegate?
     
+    private struct Constants {
+        static let target = "tillhub"
+    }
+    
     func handle(url: URL) -> Bool {
         do {
+            // currently the response object does not depend on the url path components
+            // still, the path components will reflect the path of the request
             let response = try TPOSResponse(url: url)
             delegate?.responseReceived(result: .success("\(response)"))
             return true
@@ -35,14 +47,10 @@ class TPOSManager {
     func sendCartRequest(completion: @escaping ResultCompletion<String>) {
         do {
             let cartRequest = try createCartRequest()
-            TPOS.perform(request: cartRequest, scheme: "tillhub", testUrl: true, completion: { (result) in
-                switch result {
-                case .success(_):
-                    completion(.success("\(cartRequest)"))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            })
+            TPOS.perform(request: cartRequest, target: Constants.target, test: true) { (error) in
+                if let error = error { completion(.failure(error)) }
+                else { completion(.success("\(cartRequest)")) }
+            }
         } catch let error {
             completion(.failure(error))
         }
@@ -51,26 +59,22 @@ class TPOSManager {
     func sendCartReferenceRequest(completion: @escaping ResultCompletion<String>) {
         do {
             let cartReferenceRequest = try createCartReferenceRequest()
-            TPOS.perform(request: cartReferenceRequest, testUrl: true, completion: { (result) in
-                switch result {
-                case .success(_):
-                    completion(.success("\(cartReferenceRequest)"))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+            TPOS.perform(request: cartReferenceRequest, target: Constants.target, test: true, completion: { (error) in
+                if let error = error { completion(.failure(error)) }
+                else { completion(.success("\(cartReferenceRequest)")) }
             })
         } catch let error {
             completion(.failure(error))
         }
     }
     
-    // MARK: - private helper
+    // MARK: - private examples
     
     private func createCartRequest() throws -> TPOSRequest<TPOSCart> {
         let header = TPOSRequestHeader(clientID: "d850c442-66ac-44dc-aaa0-37b051dbae5e",
-                                       actionType: .checkout,
+                                       actionPath: .checkout,
                                        payloadType: .cart,
-                                       callbackUrl: URL(string: "TillhubPointOfSaleSDKExample://custom"),
+                                       callbackUrlScheme: try callBackUrlScheme(),
                                        autoReturn: true,
                                        comment: "testing custom callback")
         
@@ -96,9 +100,9 @@ class TPOSManager {
     
     private func createCartReferenceRequest() throws -> TPOSRequest<TPOSCartReference> {
         let header = TPOSRequestHeader(clientID: "d850c442-66ac-44dc-aaa0-37b051dbae5e",
-                                       actionType: .load,
+                                       actionPath: .load,
                                        payloadType: .cartReference,
-                                       callbackUrl: URL(string: "TillhubPointOfSaleSDKExample://custom/cart/reference/response"),
+                                       callbackUrlScheme: try callBackUrlScheme(),
                                        autoReturn: true,
                                        comment: "testing custom ref callback")
         let cartReference = try TPOSCartReference(cartId: "53476a5a-38e1-4c91-b415-17b00194861d",
@@ -107,5 +111,18 @@ class TPOSManager {
         return TPOSRequest(header: header, payload: cartReference)
     }
 
+    private func callBackUrlScheme() throws -> String {
+        guard let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]] else {
+            throw TPOSManagerError.urlTypes
+        }
+        guard let tillhubType = urlTypes.filter({ $0["CFBundleURLName"] as? String == TPOS.Url.host }).first else {
+            throw TPOSManagerError.urlTypes
+        }
+        guard let myScheme = (tillhubType["CFBundleURLSchemes"] as? [String])?.first else {
+            throw TPOSManagerError.urlScheme
+        }
+        
+        return myScheme
+    }
 }
 

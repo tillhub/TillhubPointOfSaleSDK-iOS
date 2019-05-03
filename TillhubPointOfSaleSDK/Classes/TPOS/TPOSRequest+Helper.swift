@@ -13,6 +13,9 @@ import Foundation
 /// - encodingError: request could not be JSON encoded
 /// - urlError: URL construction with JSON data failed
 public enum TPOSRequestError: Error {
+    case hostDecodingMismatch
+    case payloadTypeDecoding
+    case actionPathDecoding
     case encodingError
     case urlEncodingError
     case decodingError
@@ -34,8 +37,8 @@ extension TPOSRequest {
         }
         var components = URLComponents()
         components.scheme = scheme
-        components.host = header.payloadType.rawValue
-        components.path = header.actionType.rawValue
+        components.host = TPOS.Url.host
+        components.path = "/\(header.actionPath.rawValue)/\(header.payloadType.rawValue)"
         components.queryItems = [URLQueryItem(name: TPOS.Url.requestQuery,
                                               value: json.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))]
         guard let url = components.url else { throw TPOSRequestError.urlEncodingError }

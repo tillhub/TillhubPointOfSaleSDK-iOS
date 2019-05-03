@@ -7,8 +7,8 @@
 
 import Foundation
 
-/// Wrapping as Alamofire style result completion
-public typealias ResultCompletion<T> = (_ result: Result<T, Error>) -> ()
+/// Simplifying completion with optional error
+public typealias ErrorCompletion = (_ error: Error?) -> ()
 
 /// General TPOS errors regarding transport layer
 ///
@@ -52,6 +52,9 @@ public class TPOS {
 
     /// Constants for URL building
     public struct Url {
+        
+        /// static url.host for a request
+        public static let host = "TillhubPointOfSaleSDK"
 
         /// query item name for request data
         static let requestQuery = "request"
@@ -64,16 +67,25 @@ public class TPOS {
 // MARK: - External application -> Tillhub
 extension TPOS {
 
-    static public func perform<T: Codable>(request: TPOSRequest<T>, scheme: String = "tillhub", testUrl: Bool = false, completion: ResultCompletion<Bool>?) {
+    /// Performs a request against the client target, e.g. "tillhub"
+    /// the resulting URL ideally will be traget://request
+    ///
+    /// - Parameters:
+    ///   - request: a TPOSRequest object (TPOSCart or TPOSCartReference)
+    ///   - target: target scheme, e.g. "tillhub" - to be negotiated between both implementers
+    ///   - test: indicate if the resulting URL can be parsed according to the available SDK methods
+    ///   - completion: optional completion block with error
+    static public func perform<T: Codable>(request: TPOSRequest<T>, target: String, test: Bool = false, completion: ErrorCompletion?) {
         do {
-            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(scheme) == true else {
+            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(target) == true else {
                 throw TPOSError.applicationQueriesSchemeMissingFromApplication
             }
-            let url = try request.url(scheme)
+            let url = try request.url(target)
             guard UIApplication.shared.canOpenURL(url) else {
                 throw TPOSError.cantOpenUrl
             }
-            if testUrl {
+            if test {
+                _ = try requestActionPath(url: url)
                 let payloadType = try requestPayloadType(url: url)
                 switch payloadType {
                 case .cart:
@@ -83,51 +95,82 @@ extension TPOS {
                 }
             }
             UIApplication.shared.open(url, options: [:]) { (success) in
-                success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
+                success ? completion?(nil) : completion?(TPOSError.urlNotOpened)
             }
         } catch let error {
-            completion?(.failure(error))
+            completion?(error)
         }
+    }
+    
+    /// Parses the indicated action path from a given URL
+    ///
+    /// - Parameter url: the deeplink URL to analyze
+    /// - Returns: if successful, the indicated action path
+    /// - Throws: url decoding or path decoding errors
+    static public func requestActionPath(url: URL) throws -> TPOSRequestActionPath {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            throw TPOSRequestError.urlDecodingError
+        }
+        guard components.host == TPOS.Url.host else {
+            throw TPOSRequestError.hostDecodingMismatch
+        }
+        let pathComponents = components.path.components(separatedBy: "/").filter({ $0.isEmpty == false })
+        guard pathComponents.count == 2,
+            let requestActionPath = TPOSRequestActionPath(rawValue: pathComponents[0]) else {
+                throw TPOSRequestError.actionPathDecoding
+        }
+        return requestActionPath
+    }
+    
+    /// Parses the indicated payload type from a given URL
+    ///
+    /// - Parameter url: the deeplink URL to analyze
+    /// - Returns: if successful, the indicated payload type
+    /// - Throws: url decoding or type decoding errors
+    static public func requestPayloadType(url: URL) throws -> TPOSRequestPayloadType {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            throw TPOSRequestError.urlDecodingError
+        }
+        guard components.host == TPOS.Url.host else {
+            throw TPOSRequestError.hostDecodingMismatch
+        }
+        let pathComponents = components.path.components(separatedBy: "/").filter({ $0.isEmpty == false })
+        guard pathComponents.count == 2,
+            let requestPayloadType = TPOSRequestPayloadType(rawValue: pathComponents[1]) else {
+                throw TPOSRequestError.payloadTypeDecoding
+        }
+        return requestPayloadType
     }
 }
 
 // MARK: - Tillhub -> external application
 extension TPOS {
-    
-    static public func requestPayloadType(url: URL) throws -> TPOSRequestPayloadType {
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true), let host = components.host else {
-            throw TPOSRequestError.urlDecodingError
-        }
-        guard let requestPayloadType = TPOSRequestPayloadType(rawValue: host) else { throw TPOSError.requestPayloadTypeDecoding }
-        return requestPayloadType
-    }
-    
-    static public func requestActionPath(url: URL) throws -> TPOSRequestActionPath {
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            throw TPOSRequestError.urlDecodingError
-        }
-        guard let requestActionPath = TPOSRequestActionPath(rawValue: components.path) else { throw TPOSError.requestActionPathDecoding }
-        return requestActionPath
-    }
 
-    static public func perform(response: TPOSResponse, testUrl: Bool = false, completion: ResultCompletion<Bool>?) {
+    /// Performs a response against the callback of a request
+    /// - TPOSResponse.header.url.scheme must conform to canOpenURL requirements (registered in LSApplicationQueriesSchemes)
+    /// - existing query items in TPOSResponse.header.url will be kept if possible
+    ///
+    /// - Parameters:
+    ///   - response: a TPOSResponse object with the url set in TPOSResponse.header.url
+    ///   - test: indicate if the resulting URL can be parsed according to the available SDK methods
+    ///   - completion: optional completion block with error
+    static public func perform(response: TPOSResponse, test: Bool = false, completion: ErrorCompletion?) {
         do {
-            guard let scheme = URLComponents(url: response.header.url, resolvingAgainstBaseURL: true)?.scheme,
-                (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(scheme) == true else {
+            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(response.header.urlScheme) == true else {
                     throw TPOSError.applicationQueriesSchemeMissingFromApplication
             }
             let url = try response.url()
             guard UIApplication.shared.canOpenURL(url) else {
                 throw TPOSError.cantOpenUrl
             }
-            if testUrl {
+            if test {
                 _ = try TPOSResponse(url: url)
             }
             UIApplication.shared.open(url, options: [:]) { (success) in
-                success ? completion?(.success(true)) : completion?(.failure(TPOSError.urlNotOpened))
+                success ? completion?(nil) : completion?(TPOSError.urlNotOpened)
             }
         } catch let error {
-            completion?(.failure(error))
+            completion?(error)
         }
     }
     

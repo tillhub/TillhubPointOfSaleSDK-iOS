@@ -46,8 +46,14 @@ public struct TPOSResponseHeader: Codable {
     /// The id of the associated request
     public let requestId: String
     
-    /// The callbackUrl of the associated request
-    public let url: URL
+    /// The callbackUrl scheme of the associated request
+    public let urlScheme: String
+    
+    /// The action path of the associated request
+    public let requestActionPath: TPOSRequestActionPath
+    
+    /// The payload path of the associated request
+    public let requestPayloadType: TPOSRequestPayloadType
     
     /// If set, this contains information about errors during the usage of the Tillhub application
     public let status: TPOSResponsStatus
@@ -65,12 +71,16 @@ public struct TPOSResponseHeader: Codable {
     ///   - error: An optional error
     ///   - comment: An optional comment
     public init(requestId: String,
-                url: URL,
+                urlScheme: String,
+                requestActionPath: TPOSRequestActionPath,
+                requestPayloadType: TPOSRequestPayloadType,
                 error: Error? = nil,
                 comment: String? = nil) {
         self.sdkVersion = TPOS.podVersion
         self.requestId = requestId
-        self.url = url
+        self.urlScheme = urlScheme
+        self.requestActionPath = requestActionPath
+        self.requestPayloadType = requestPayloadType
         self.status = (error == nil) ? .success : .failure
         self.localizedErrorDescription = error?.localizedDescription
         self.comment = comment

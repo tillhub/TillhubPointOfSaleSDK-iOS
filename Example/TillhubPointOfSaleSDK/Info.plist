@@ -28,18 +28,10 @@
 			<key>CFBundleURLIconFile</key>
 			<string></string>
 			<key>CFBundleURLName</key>
-			<string>tillhub</string>
+			<string>TillhubPointOfSaleSDK</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>TillhubPointOfSaleSDKExample</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>TillhubPointOfSaleSDK</string>
 			</array>
 		</dict>
 	</array>
@@ -49,7 +41,6 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>TillhubPointOfSaleSDK</string>
 		<string>TillhubPointOfSaleSDKExample</string>
 		<string>tillhub</string>
 	</array>
