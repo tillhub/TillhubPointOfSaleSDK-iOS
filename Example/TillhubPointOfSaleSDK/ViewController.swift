@@ -27,28 +27,32 @@ class ViewController: UIViewController, TPOSMangerResponseDelegate {
     }
 
     @IBAction func sendRequestTapped(_ sender: Any) {
-        logTextView.text = ""
+        resetTextView()
         sendRequestButton.isEnabled = false
         sendRequest { [weak self] (result) in
             guard let strongSelf = self else { return }
             strongSelf.sendRequestButton.isEnabled = true
             switch result {
             case .success(let text):
-                strongSelf.logTextView.text.append("REQUEST SUCCESS:\n\n\(text)\n\n")
+                strongSelf.append(text: "REQUEST SUCCESS:\n\n\(text)\n\n")
             case .failure(let error):
-                strongSelf.logTextView.text.append("REQUEST FAILURE:\n\n\(error.localizedDescription)\n\n")
+                strongSelf.append(text: "REQUEST FAILURE:\n\n\(error.localizedDescription)\n\n")
             }
         }
     }
     
     // MARK: - TPOSMangerResponseDelegate
     
+    func received(url: String) {
+        append(text: "URL RECEIVED:\n\n\(url)\n\n")
+    }
+    
     func responseReceived(result: Result<String, Error>) {
         switch result {
         case .success(let text):
-            logTextView.text.append("RESPONSE SUCCESS:\n\n\(text)\n\n")
+            append(text: "RESPONSE SUCCESS:\n\n\(text)\n\n")
         case .failure(let error):
-            logTextView.text.append("RESPONSE FAILURE:\n\n\(error.localizedDescription)\n\n")
+            append(text: "RESPONSE FAILURE:\n\n\(error.localizedDescription)\n\n")
         }
     }
     
@@ -75,5 +79,14 @@ class ViewController: UIViewController, TPOSMangerResponseDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
+    private func append(text: String) {
+        logTextView.text.append(text)
+        logTextView.scrollRangeToVisible(NSMakeRange(logTextView.text.count-1, 1))
+    }
+    
+    private func resetTextView() {
+        logTextView.text = ""
+        logTextView.scrollRangeToVisible(NSMakeRange(logTextView.text.count-1, 1))
+    }
 }
 

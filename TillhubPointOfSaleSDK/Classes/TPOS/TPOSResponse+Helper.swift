@@ -12,6 +12,15 @@ import Foundation
 ///
 /// - encodingError: request could not be JSON encoded
 /// - urlError: URL construction with JSON data failed
+
+
+
+/// General errors regarding a TillhubPointOfSaleSDK response
+///
+/// - encodingError: response could not be encoded (to JSON)
+/// - urlEncodingError: response JSON could not be encoded (to URL)
+/// - decodingError: response could not be decoded (from JSON)
+/// - urlDecodingError: response JSON could not be decoded (from URL)
 public enum TPOSResponseError: Error {
     case encodingError
     case urlEncodingError
@@ -22,7 +31,7 @@ public enum TPOSResponseError: Error {
 // MARK: - Extensions for serialization (used by Tillhub)
 extension TPOSResponse {
     
-    /// Creates a deep link URL from a TPOSResponse
+    /// Creates a deep link URL from a TPOSResponse, pod-private
     /// - only the query items are added to the TPOSRequest.header.callbackUrl
     ///
     /// - Returns: deep link URL to call from the Tillhub application

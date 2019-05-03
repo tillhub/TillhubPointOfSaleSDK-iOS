@@ -77,7 +77,7 @@ extension TPOS {
     ///   - completion: optional completion block with error
     static public func perform<T: Codable>(request: TPOSRequest<T>, target: String, test: Bool = false, completion: ErrorCompletion?) {
         do {
-            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(target) == true else {
+            guard (Bundle.main.object(forInfoDictionaryKey: Constants.queriesSchemes) as? [String])?.contains(target) == true else {
                 throw TPOSError.applicationQueriesSchemeMissingFromApplication
             }
             let url = try request.url(target)
@@ -156,7 +156,7 @@ extension TPOS {
     ///   - completion: optional completion block with error
     static public func perform(response: TPOSResponse, test: Bool = false, completion: ErrorCompletion?) {
         do {
-            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(response.header.urlScheme) == true else {
+            guard (Bundle.main.object(forInfoDictionaryKey: Constants.queriesSchemes) as? [String])?.contains(response.header.urlScheme) == true else {
                     throw TPOSError.applicationQueriesSchemeMissingFromApplication
             }
             let url = try response.url()
@@ -179,12 +179,23 @@ extension TPOS {
 // MARK: - Local usage
 extension TPOS {
     
-    public struct Constants {
+    /// Constants for pod-internal usage
+    struct Constants {
+        
+        /// key to find allowed queries schemes
+        static let queriesSchemes = "LSApplicationQueriesSchemes"
+        
+        /// version key: pod identifier
         static let identifier = "org.cocoapods.TillhubPointOfSaleSDK"
+        
+        /// version key: pod version
         static let version = "CFBundleShortVersionString"
+        
+        /// version value: unsepecified
         static let unspecified = "unspecified"
     }
     
+    /// retrieve the version of this SDK
     static var podVersion: String = {
         return Bundle(identifier: Constants.identifier)?.infoDictionary?[Constants.version] as? String ?? Constants.unspecified
     }()

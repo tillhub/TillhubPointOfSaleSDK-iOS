@@ -16,6 +16,7 @@ enum TPOSManagerError: LocalizedError {
 }
 
 protocol TPOSMangerResponseDelegate {
+    func received(url: String)
     func responseReceived(result: Result<String, Error>)
 }
 
@@ -32,6 +33,7 @@ class TPOSManager {
     }
     
     func handle(url: URL) -> Bool {
+        delegate?.received(url: url.absoluteString)
         do {
             // currently the response object does not depend on the url path components
             // still, the path components will reflect the path of the request

@@ -8,10 +8,22 @@
 
 import Foundation
 
-/// General errors regarding a TillhubPointOfSaleSDK request
+
 ///
 /// - encodingError: request could not be JSON encoded
 /// - urlError: URL construction with JSON data failed
+
+
+
+/// General errors regarding a TillhubPointOfSaleSDK request
+///
+/// - hostDecodingMismatch: host component must be TillhubPointOfSaleSDK always
+/// - payloadTypeDecoding: payload type could not be inferred from a URL
+/// - actionPathDecoding: action path could not be inferred from a URL
+/// - encodingError: request could not be encoded (to JSON)
+/// - urlEncodingError: request JSON could not be encoded (to URL)
+/// - decodingError: request could not be decoded (from JSON)
+/// - urlDecodingError: request JSON could not be decoded (from URL)
 public enum TPOSRequestError: Error {
     case hostDecodingMismatch
     case payloadTypeDecoding
@@ -25,7 +37,7 @@ public enum TPOSRequestError: Error {
 // MARK: - Extensions for serialization (used by external applications)
 extension TPOSRequest {
 
-    /// Creates a deep link URL from a TPOSRequest
+    /// Creates a deep link URL from a TPOSRequest, pod-private
     ///
     /// - Parameter scheme: target scheme for Tillhub application
     /// - Returns: deep link URL to call the Tillhub application
