@@ -52,12 +52,11 @@ public class TPOS {
 
     /// Constants for URL building
     public struct Url {
-        
-        /// scheme for any call towards the Tillhub application
-        static let scheme = "tillhub"
-        
-        /// <#Description#>
+
+        /// query item name for request data
         static let requestQuery = "request"
+        
+        /// query item name for response data
         static let responseQuery = "response"
     }
 }
@@ -65,12 +64,12 @@ public class TPOS {
 // MARK: - External application -> Tillhub
 extension TPOS {
 
-    static public func perform<T: Codable>(request: TPOSRequest<T>, testUrl: Bool = false, completion: ResultCompletion<Bool>?) {
+    static public func perform<T: Codable>(request: TPOSRequest<T>, scheme: String = "tillhub", testUrl: Bool = false, completion: ResultCompletion<Bool>?) {
         do {
-            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(Url.scheme) == true else {
+            guard (Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String])?.contains(scheme) == true else {
                 throw TPOSError.applicationQueriesSchemeMissingFromApplication
             }
-            let url = try request.url()
+            let url = try request.url(scheme)
             guard UIApplication.shared.canOpenURL(url) else {
                 throw TPOSError.cantOpenUrl
             }

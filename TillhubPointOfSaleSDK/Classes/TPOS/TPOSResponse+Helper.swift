@@ -24,9 +24,9 @@ extension TPOSResponse {
     
     /// Creates a deep link URL from a TPOSResponse
     ///
-    /// - Returns: deep link URL to call the Tillhub application
+    /// - Returns: deep link URL to call from the Tillhub application
     /// - Throws: encoding errors (JSON, URL)
-    public func url() throws -> URL {
+    func url() throws -> URL {
         let data = try JSONEncoder().encode(self)
         guard let json = String(data: data, encoding: .utf8) else {
             throw TPOSResponseError.encodingError

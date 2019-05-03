@@ -24,15 +24,16 @@ extension TPOSRequest {
 
     /// Creates a deep link URL from a TPOSRequest
     ///
+    /// - Parameter scheme: target scheme for Tillhub application
     /// - Returns: deep link URL to call the Tillhub application
     /// - Throws: encoding errors (JSON, URL)
-    public func url() throws -> URL {
+    func url(_ scheme: String) throws -> URL {
         let data = try JSONEncoder().encode(self)
         guard let json = String(data: data, encoding: .utf8) else {
             throw TPOSRequestError.encodingError
         }
         var components = URLComponents()
-        components.scheme = TPOS.Url.scheme
+        components.scheme = scheme
         components.host = header.payloadType.rawValue
         components.path = header.actionType.rawValue
         components.queryItems = [URLQueryItem(name: TPOS.Url.requestQuery,
@@ -51,7 +52,6 @@ extension TPOSRequest {
     /// - Throws: decoding errors (URL, JSON)
     public init(url: URL) throws {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-            components.scheme == TPOS.Url.scheme,
             let json = components.queryItems?.filter({ $0.name == TPOS.Url.requestQuery }).first?.value?.removingPercentEncoding else {
                 throw TPOSRequestError.urlDecodingError
         }
