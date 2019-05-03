@@ -23,7 +23,10 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-Dd-0lW">
                                 <rect key="frame" x="56" y="40" width="263" height="30"/>
-                                <state key="normal" title="Send Request to Tillhub"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Send Request to Tillhub">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="sendRequestTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="q6q-83-YuL"/>
                                 </connections>
@@ -36,7 +39,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.16123294830000001" green="0.61310070750000001" blue="0.87315094469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Xob-zG-d4q" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="KjT-rC-pRB"/>
                             <constraint firstItem="Xob-zG-d4q" firstAttribute="top" secondItem="ggL-Dd-0lW" secondAttribute="bottom" constant="16" id="Pzp-6p-pQE"/>

@@ -31,16 +31,13 @@ extension TPOSRequest {
         guard let json = String(data: data, encoding: .utf8) else {
             throw TPOSRequestError.encodingError
         }
-
         var components = URLComponents()
         components.scheme = TPOS.Url.scheme
         components.host = header.payloadType.rawValue
         components.path = header.actionType.rawValue
         components.queryItems = [URLQueryItem(name: TPOS.Url.requestQuery,
                                               value: json.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))]
-        
         guard let url = components.url else { throw TPOSRequestError.urlEncodingError }
-        
         return url
     }
 }

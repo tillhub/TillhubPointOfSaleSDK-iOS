@@ -15,9 +15,9 @@ public protocol TPOSRequestPayload: Codable {}
 ///
 /// - load: load a cart by cart- or cart-reference-payload, cashier checks out manually
 /// - checkout: load a cart by cart- or cart-reference-payload, check out automatically (manual or automatic payments via cart properties)
-public enum TPOSRequestActionType: String, Codable {
-    case load = "load"
-    case checkout = "checkout"
+public enum TPOSRequestActionPath: String, Codable {
+    case load = "/load"
+    case checkout = "/checkout"
 }
 
 /// Possible payload types for the Tillhub application
@@ -63,7 +63,7 @@ public struct TPOSRequestHeader: Codable {
     public let clientID: String
     
     /// One of the available TillhubPointOfSaleSDK request action types (e.g. load or checkout), madatory
-    public let actionType: TPOSRequestActionType
+    public let actionType: TPOSRequestActionPath
     
     /// One of the available TillhubPointOfSaleSDK request payload types (e.g. cart or cartReference), madatory
     public let payloadType: TPOSRequestPayloadType
@@ -91,7 +91,7 @@ public struct TPOSRequestHeader: Codable {
     ///   - autoReturn: If a cashier action is needed to trigger a response
     ///   - comment: An optional note that can be used for any kind of display
     public init(clientID: String,
-                actionType: TPOSRequestActionType,
+                actionType: TPOSRequestActionPath,
                 payloadType: TPOSRequestPayloadType,
                 customReference: String? = nil,
                 callbackUrl: URL? = nil,

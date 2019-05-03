@@ -21,12 +21,21 @@ public enum TPOSTaxType: String, Codable {
 public struct TPOSCustomer: Codable {
     
     /// A displayable name
-    public var name: String?
+    public let name: String?
     
     /// An internal reference (e.g. customer number or Tillhub customer ID)
-    public var customId: String?
+    public let customId: String?
     
-    public init() {}
+    /// Designated initializer
+    ///
+    /// - Parameters:
+    ///   - name: A displayable name
+    ///   - customId: An internal reference (e.g. customer number or Tillhub customer ID)
+    public init(name: String? = nil,
+                customId: String? = nil) {
+        self.name = name
+        self.customId = customId
+    }
 }
 
 /// Staff (cashier per cart / salesperson per item)
@@ -38,5 +47,14 @@ public struct TPOSStaff: Codable {
     /// An internal reference (e.g. staff number or Tillhub staff ID)
     public var customId: String?
     
-    public init() {}
+    /// Designated initializer
+    ///
+    /// - Parameters:
+    ///   - name: A displayable name
+    ///   - customId: An internal reference (e.g. customer number or Tillhub customer ID)
+    public init(name: String? = nil,
+                customId: String? = nil) {
+        self.name = name
+        self.customId = customId
+    }
 }
