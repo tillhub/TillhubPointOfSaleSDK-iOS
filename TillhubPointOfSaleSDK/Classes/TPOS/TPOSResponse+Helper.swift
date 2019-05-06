@@ -44,7 +44,7 @@ extension TPOSResponse {
 
         var components = URLComponents()
         components.scheme = header.urlScheme
-        components.host = TPOS.Url.host
+        components.host = TPOS.host
         components.path = "/\(header.requestActionPath.rawValue)/\(header.requestPayloadType.rawValue)"
         
         let queryItem = URLQueryItem(name: TPOS.Url.responseQuery,
@@ -68,7 +68,10 @@ extension TPOSResponse {
     /// - Throws: decoding errors (URL, JSON)
     public init(url: URL) throws {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-            let json = components.queryItems?.filter({ $0.name == TPOS.Url.responseQuery }).first?.value?.removingPercentEncoding else {
+            components.host == TPOS.host else {
+             throw TPOSError.versionMismatch
+        }
+        guard let json = components.queryItems?.filter({ $0.name == TPOS.Url.responseQuery }).first?.value?.removingPercentEncoding else {
                 throw TPOSResponseError.urlDecodingError
         }
         guard let data = json.data(using: .utf8) else { throw TPOSResponseError.decodingError }

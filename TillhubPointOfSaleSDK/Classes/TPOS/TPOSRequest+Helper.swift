@@ -25,7 +25,6 @@ import Foundation
 /// - decodingError: request could not be decoded (from JSON)
 /// - urlDecodingError: request JSON could not be decoded (from URL)
 public enum TPOSRequestError: Error {
-    case hostDecodingMismatch
     case payloadTypeDecoding
     case actionPathDecoding
     case encodingError
@@ -49,7 +48,7 @@ extension TPOSRequest {
         }
         var components = URLComponents()
         components.scheme = scheme
-        components.host = TPOS.Url.host
+        components.host = TPOS.host
         components.path = "/\(header.actionPath.rawValue)/\(header.payloadType.rawValue)"
         components.queryItems = [URLQueryItem(name: TPOS.Url.requestQuery,
                                               value: json.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))]
@@ -67,7 +66,10 @@ extension TPOSRequest {
     /// - Throws: decoding errors (URL, JSON)
     public init(url: URL) throws {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-            let json = components.queryItems?.filter({ $0.name == TPOS.Url.requestQuery }).first?.value?.removingPercentEncoding else {
+        components.host == TPOS.host else {
+            throw TPOSError.versionMismatch
+        }
+        guard let json = components.queryItems?.filter({ $0.name == TPOS.Url.requestQuery }).first?.value?.removingPercentEncoding else {
                 throw TPOSRequestError.urlDecodingError
         }
         guard let data = json.data(using: .utf8) else { throw TPOSRequestError.decodingError }

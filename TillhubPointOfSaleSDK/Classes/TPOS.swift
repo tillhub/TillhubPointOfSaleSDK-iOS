@@ -23,6 +23,7 @@ public enum TPOSError: LocalizedError {
     case applicationQueriesSchemeMissingFromApplication
     case cantOpenUrl
     case urlNotOpened
+    case versionMismatch
     
     public var errorDescription: String? {
         switch self {
@@ -36,6 +37,8 @@ public enum TPOSError: LocalizedError {
             return "the URL can not be opened"
         case .urlNotOpened:
             return "the URL was not opened"
+        case .versionMismatch:
+            return "SDK versions do not match"
         }
     }
 }
@@ -111,8 +114,8 @@ extension TPOS {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             throw TPOSRequestError.urlDecodingError
         }
-        guard components.host == TPOS.Url.host else {
-            throw TPOSRequestError.hostDecodingMismatch
+        guard components.host == TPOS.host else {
+            throw TPOSError.versionMismatch
         }
         let pathComponents = components.path.components(separatedBy: "/").filter({ $0.isEmpty == false })
         guard pathComponents.count == 2,
@@ -131,8 +134,8 @@ extension TPOS {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             throw TPOSRequestError.urlDecodingError
         }
-        guard components.host == TPOS.Url.host else {
-            throw TPOSRequestError.hostDecodingMismatch
+        guard components.host == TPOS.host else {
+            throw TPOSError.versionMismatch
         }
         let pathComponents = components.path.components(separatedBy: "/").filter({ $0.isEmpty == false })
         guard pathComponents.count == 2,
@@ -198,5 +201,11 @@ extension TPOS {
     /// retrieve the version of this SDK
     static var podVersion: String = {
         return Bundle(identifier: Constants.identifier)?.infoDictionary?[Constants.version] as? String ?? Constants.unspecified
+    }()
+    
+    static var host: String = {
+        let components = TPOS.podVersion.components(separatedBy: ".").filter({ $0.isEmpty == false })
+        let shortened = components.prefix(2).joined(separator: "_")
+        return "\(TPOS.Url.host)_\(shortened)"
     }()
 }

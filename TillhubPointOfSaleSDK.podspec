@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TillhubPointOfSaleSDK'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'SDK for the Tillhub POS SDK.'
   s.description      = 'SDK for iOS from TillhubGmbH for the Tillhub POS.'
 

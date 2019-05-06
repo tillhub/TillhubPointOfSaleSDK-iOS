@@ -21,33 +21,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-Dd-0lW">
-                                <rect key="frame" x="56" y="40" width="263" height="30"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Send Request to Tillhub">
-                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendRequestTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="q6q-83-YuL"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-zG-d4q">
-                                <rect key="frame" x="56" y="86" width="263" height="541"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eTc-qP-PAY">
+                                <rect key="frame" x="36" y="40" width="303" height="607"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xI8-jQ-aXQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="28"/>
+                                        <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="R7u-Y6-RtY">
+                                                <rect key="frame" x="0.0" y="0.0" width="174" height="29"/>
+                                                <segments>
+                                                    <segment title="First"/>
+                                                    <segment title="Second"/>
+                                                </segments>
+                                            </segmentedControl>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dX1-Sm-Y4V">
+                                                <rect key="frame" x="182" y="0.0" width="121" height="29"/>
+                                                <segments>
+                                                    <segment title="First"/>
+                                                    <segment title="Second"/>
+                                                </segments>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-Dd-0lW">
+                                        <rect key="frame" x="0.0" y="36" width="303" height="30"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Send Request to Tillhub">
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendRequestTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="q6q-83-YuL"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-zG-d4q">
+                                        <rect key="frame" x="0.0" y="74" width="303" height="533"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Xob-zG-d4q" firstAttribute="leading" secondItem="eTc-qP-PAY" secondAttribute="leading" id="4X0-Eq-ay2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Xob-zG-d4q" secondAttribute="trailing" id="NrN-CS-Ch3"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.16123294830000001" green="0.61310070750000001" blue="0.87315094469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Xob-zG-d4q" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="KjT-rC-pRB"/>
-                            <constraint firstItem="Xob-zG-d4q" firstAttribute="top" secondItem="ggL-Dd-0lW" secondAttribute="bottom" constant="16" id="Pzp-6p-pQE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Xob-zG-d4q" secondAttribute="trailing" constant="40" id="Wbl-rM-f60"/>
-                            <constraint firstItem="ggL-Dd-0lW" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="aQx-BI-2z8"/>
-                            <constraint firstItem="ggL-Dd-0lW" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="jUe-IV-BkQ"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Xob-zG-d4q" secondAttribute="bottom" constant="40" id="uUK-F6-Qha"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ggL-Dd-0lW" secondAttribute="trailing" constant="40" id="x6g-iW-pL3"/>
+                            <constraint firstItem="eTc-qP-PAY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="20" id="1ei-dw-nb4"/>
+                            <constraint firstItem="eTc-qP-PAY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="Iq6-ol-aOR"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="eTc-qP-PAY" secondAttribute="bottom" constant="20" id="a1G-Sz-gHv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eTc-qP-PAY" secondAttribute="trailing" constant="20" id="zRM-v2-wWQ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -57,6 +82,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="132" y="133.5832083958021"/>
         </scene>
     </scenes>
 </document>

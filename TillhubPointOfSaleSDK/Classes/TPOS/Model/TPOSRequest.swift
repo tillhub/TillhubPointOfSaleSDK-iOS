@@ -71,11 +71,8 @@ public struct TPOSRequestHeader: Codable {
     /// The Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
     public let callbackUrlScheme: String
     
-    /// If present, the TillhubPointOfSaleSDK will mark payments etc. with this reference
-    public let customReference: String?
-    
-    /// If true the Tillhub application will send results to the callback URL
-    /// after finishing the intended process without manual triggers from the cashier
+    /// If true the Tillhub application will send results to the callback URL automatically
+    /// from the Payment Finished Screen after a timeout, otherwise "Return to: Caller" must be tapped
     public let autoReturn: Bool?
     
     /// An optional note that can be used for any kind of display
@@ -86,7 +83,6 @@ public struct TPOSRequestHeader: Codable {
     /// - Parameters:
     ///   - clientID: The Tillhub user account UUID, mandatory
     ///   - actionPath: One of the available TillhubPointOfSaleSDK request paths (e.g. /loadCart or /checkoutCart), madatory
-    ///   - customReference: If present, the TillhubPointOfSaleSDK result will contain this for reference
     ///   - callbackUrlScheme: If present, the Tillhub application will send the response there, appending a TillhubPointOfSaleSDK result object
     ///   - autoReturn: If a cashier action is needed to trigger a response
     ///   - comment: An optional note that can be used for any kind of display
@@ -103,7 +99,6 @@ public struct TPOSRequestHeader: Codable {
         self.actionPath = actionPath
         self.payloadType = payloadType
         self.callbackUrlScheme = callbackUrlScheme
-        self.customReference = customReference
         self.autoReturn = autoReturn
         self.comment = comment
     }
