@@ -179,7 +179,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 
 ```
 
-**- resonse JSON data example:**
+**- response content example (accessible via TPOSResponse object):**
 ```json
 {
   "payload": {
