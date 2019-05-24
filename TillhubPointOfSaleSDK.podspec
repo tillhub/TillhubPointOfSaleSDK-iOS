@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.homepage         = 'https://www.tillhub.de'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = { :type => 'MIT' }
   s.author           = { 'TillhubGmbH' => 'support@tillhub.de' }
   s.source           = { :git => 'https://github.com/tillhub/TillhubPointOfSaleSDK-iOS.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
