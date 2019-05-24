@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="TillhubPointOfSaleSDK_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eTc-qP-PAY">
+                                <rect key="frame" x="36" y="64" width="303" height="694"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aY9-aZ-WDN">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="118"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ic9-bG-H4t">
+                                                <rect key="frame" x="8" y="8" width="287" height="102"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xI8-jQ-aXQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="287" height="28"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duZ-CH-9Et">
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="28"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="100" id="ml6-9J-5zM"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7Wa-o1-dSD">
+                                                                <rect key="frame" x="108" y="0.0" width="179" height="29"/>
+                                                                <segments>
+                                                                    <segment title="Load"/>
+                                                                    <segment title="Checkout"/>
+                                                                </segments>
+                                                                <connections>
+                                                                    <action selector="actionChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="moE-GU-5tQ"/>
+                                                                </connections>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cRj-bl-HC4">
+                                                        <rect key="frame" x="0.0" y="36" width="287" height="28"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payload:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ST3-2B-2nd">
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="28"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="100" id="FFY-9i-yNb"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dX1-Sm-Y4V">
+                                                                <rect key="frame" x="108" y="0.0" width="179" height="29"/>
+                                                                <segments>
+                                                                    <segment title="Cart"/>
+                                                                    <segment title="Reference"/>
+                                                                </segments>
+                                                                <connections>
+                                                                    <action selector="payloadChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="rqb-UD-FCu"/>
+                                                                </connections>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7F1-6x-5jJ">
+                                                        <rect key="frame" x="0.0" y="72" width="287" height="30"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUF-Y2-ksk" userLabel="Account">
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="100" id="uNC-uK-qW5"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="567272bb-8c85-4041-8682-17398be94eb1" borderStyle="roundedRect" placeholder="Client Account UUID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fOD-WW-fwk">
+                                                                <rect key="frame" x="108" y="0.0" width="179" height="30"/>
+                                                                <nil key="textColor"/>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8wU-oD-2ki" userLabel="Branch Stack View">
+                                                        <rect key="frame" x="0.0" y="102" width="287" height="0.0"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Branch:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06o-S7-Gke">
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="0.0"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="100" id="Z7N-y0-JL8"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="af03b5da-3bd2-439b-bdf8-fbf7e0515137" borderStyle="roundedRect" placeholder="Branch UUID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="coo-le-N0m">
+                                                                <rect key="frame" x="108" y="0.0" width="179" height="0.0"/>
+                                                                <nil key="textColor"/>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TCV-hT-MJL" userLabel="Cart Stack View">
+                                                        <rect key="frame" x="0.0" y="102" width="287" height="0.0"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upk-3h-VmK">
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="0.0"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="100" id="Zed-16-B6r"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="53476a5a-38e1-4c91-b415-17b00194861d" borderStyle="roundedRect" placeholder="Cart UUID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LgD-4m-Sfc">
+                                                                <rect key="frame" x="108" y="0.0" width="179" height="0.0"/>
+                                                                <nil key="textColor"/>
+                                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="ic9-bG-H4t" secondAttribute="trailing" constant="8" id="1Ux-BL-BLZ"/>
+                                            <constraint firstItem="ic9-bG-H4t" firstAttribute="leading" secondItem="aY9-aZ-WDN" secondAttribute="leading" constant="8" id="eKl-pq-oWZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="ic9-bG-H4t" secondAttribute="bottom" constant="8" id="uOQ-qA-dR2"/>
+                                            <constraint firstItem="ic9-bG-H4t" firstAttribute="top" secondItem="aY9-aZ-WDN" secondAttribute="top" constant="8" id="w4y-aR-g0E"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-Dd-0lW">
+                                        <rect key="frame" x="0.0" y="126" width="303" height="30"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Send Request to Tillhub">
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendRequestTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="q6q-83-YuL"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xob-zG-d4q">
+                                        <rect key="frame" x="0.0" y="164" width="303" height="530"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Xob-zG-d4q" firstAttribute="leading" secondItem="eTc-qP-PAY" secondAttribute="leading" id="4X0-Eq-ay2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Xob-zG-d4q" secondAttribute="trailing" id="NrN-CS-Ch3"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16123294830000001" green="0.61310070750000001" blue="0.87315094469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="eTc-qP-PAY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="20" id="1ei-dw-nb4"/>
+                            <constraint firstItem="eTc-qP-PAY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="Iq6-ol-aOR"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="eTc-qP-PAY" secondAttribute="bottom" constant="20" id="a1G-Sz-gHv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eTc-qP-PAY" secondAttribute="trailing" constant="20" id="zRM-v2-wWQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="accountTextField" destination="fOD-WW-fwk" id="zKB-5l-iD9"/>
+                        <outlet property="actionSegmentedControl" destination="7Wa-o1-dSD" id="dn8-zl-fCW"/>
+                        <outlet property="branchStackView" destination="8wU-oD-2ki" id="HBb-sy-5ne"/>
+                        <outlet property="branchTextField" destination="coo-le-N0m" id="YzY-gq-02H"/>
+                        <outlet property="cartStackView" destination="TCV-hT-MJL" id="em9-OW-XuY"/>
+                        <outlet property="cartTextField" destination="LgD-4m-Sfc" id="o4i-iX-KuZ"/>
+                        <outlet property="logTextView" destination="Xob-zG-d4q" id="GdS-8r-89P"/>
+                        <outlet property="payloadSegementedControl" destination="dX1-Sm-Y4V" id="xsJ-jb-lid"/>
+                        <outlet property="sendRequestButton" destination="ggL-Dd-0lW" id="crL-s5-8G4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+</document>

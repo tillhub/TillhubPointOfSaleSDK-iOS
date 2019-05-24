@@ -1,0 +1,11 @@
+platform :ios, '10.0'
+swift_version = '5.0'
+use_frameworks!
+
+target 'TillhubPointOfSaleSDK_Example' do
+  pod 'TillhubPointOfSaleSDK', :path => '../'
+
+  target 'TillhubPointOfSaleSDK_Tests' do
+    inherit! :search_paths
+  end
+end

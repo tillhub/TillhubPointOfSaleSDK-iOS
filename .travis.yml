@@ -1,0 +1,25 @@
+language: objective-c
+podfile: Example/Podfile
+cache: cocoapods
+osx_image: xcode10.2
+
+branches:
+  only:
+  - master
+  - travis-test-baris
+  - develop
+
+before_install:
+- pod --version
+- pod repo update
+
+script:
+- set -o pipefail
+- xcodebuild -version
+- xcodebuild -showsdks
+- pod lib lint
+
+# Run Unit tests
+- xcodebuild test -workspace Example/TillhubPointOfSaleSDK.xcworkspace -scheme TillhubPointOfSaleSDK_Tests -destination 'platform=iOS Simulator,OS=12.2,name=iPad Pro (9.7-inch)' -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
+
+xcode_scheme: Example/TillhubPointOfSaleSDK-Example
