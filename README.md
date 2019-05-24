@@ -4,7 +4,8 @@
 [![Version](https://img.shields.io/cocoapods/v/TillhubPointOfSaleSDK.svg)](http://cocoadocs.org/docsets/TillhubPointOfSaleSDK)
 [![License](https://img.shields.io/cocoapods/l/TillhubPointOfSaleSDK.svg)](http://cocoadocs.org/docsets/TillhubPointOfSaleSDK)
 [![Platform](https://img.shields.io/cocoapods/p/TillhubPointOfSaleSDK.svg)](http://cocoadocs.org/docsets/TillhubPointOfSaleSDK)
-[![Swift Version](https://img.shields.io/badge/Swift-5.0.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift Version](https://img.shields.io/badge/Swift-5.x-F16D39.svg?style=flat)](https://developer.apple.com/swift)
+
 
 
 Use Tillhub to create sales and process payments
