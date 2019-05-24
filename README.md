@@ -23,7 +23,7 @@ Use Tillhub to create sales and process payments
 #### [CocoaPods](https://cocoapods.org)
 ```
 platform :ios, '10.0'
-pod 'TillhubPointOfSaleSDK', :git => 'https://github.com/tillhub/TillhubPointOfSaleSDK-iOS.git'
+pod 'TillhubPointOfSaleSDK'
 ```
 
 Be sure to call `pod update` and use `pod install --repo-update` to ensure you have the most recent version of the SDK installed.
