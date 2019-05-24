@@ -124,14 +124,20 @@ class TPOSManager {
                                        autoReturn: true,
                                        comment: "testing custom callback")
         
+        // a minimal cart item
         let cartItem1 = try TPOSCartItem(productId: "84f82be1-29f7-4372-9f58-944966743991",
                                          currency: "EUR",
                                          pricePerUnit: 2.89,
                                          vatRate: 0.07)
         
-        let discount = try TPOSCartItemDiscount(type: TPOSCartItemDiscountType.relative,
+        // a more complex cart item
+        let discount1 = try TPOSCartItemDiscount(type: TPOSCartItemDiscountType.relative,
                                                 value: 0.15,
                                                 comment: "A 15% discount.")
+        
+        let discount2 = try TPOSCartItemDiscount(type: TPOSCartItemDiscountType.absolute,
+                                                 value: 1.00,
+                                                 comment: "A 1€ discount.")
         
         let cartItem2 = try TPOSCartItem(type: TPOSCartItemType.item,
                                          quantity: 2.0,
@@ -142,7 +148,7 @@ class TPOSManager {
                                          title: "Test product",
                                          comment: "Palmolive Flüssigseife Milch & Honig 300ml",
                                          salesPerson: TPOSStaff(name: "Hubert Cumberdale", customId: "0089"),
-                                         discounts: [discount])
+                                         discounts: [discount1, discount2])
         
         let paymentIntent = TPOSPaymentIntent(allowedTypes: [TPOSPaymentType.cash],
                                               automaticType: TPOSPaymentAutomaticType.automaticCash)

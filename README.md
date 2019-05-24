@@ -85,16 +85,20 @@ let header = TPOSRequestHeader(clientID: "Your client's Tillhub account ID",
                                autoReturn: true, // Tillhub will automatically return to your application
                                comment: "Testing a checkout with cart details")
 
-// Minimal cart item example
+// minimal cart item example
 let cartItem1 = try TPOSCartItem(productId: "A Tillhub product ID",
                                  currency: "EUR",
                                  pricePerUnit: 99.95,
                                  vatRate: 0.19)
 
-// Extended cart item example
-let discount = try TPOSCartItemDiscount(type: TPOSCartItemDiscountType.relative,
+// complex cart item example
+let discount1 = try TPOSCartItemDiscount(type: TPOSCartItemDiscountType.relative,
                                         value: 0.15,
-                                        comment: "A 15% discount.") 
+                                        comment: "A 15% discount.")
+                                        
+let discount2 = try TPOSCartItemDiscount(type: TPOSCartItemDiscountType.absolute,
+                                        value: 1.00,
+                                        comment: "A 1€ discount.") 
                                                 
 let cartItem2 = try TPOSCartItem(type: TPOSCartItemType.item,
                                  quantity: 2.0,
@@ -105,7 +109,7 @@ let cartItem2 = try TPOSCartItem(type: TPOSCartItemType.item,
                                  title: "Another test product",
                                  comment: "Yet another fancy product",
                                  salesPerson: TPOSStaff(name: "Hubert Cumberdale", customId: "0089"),
-                                 discounts: [discount])
+                                 discounts: [discount1, discount2])
         
 // set up the cart
 let paymentIntent = TPOSPaymentIntent(allowedTypes: [TKPOSPaymentType.cash],
@@ -173,6 +177,85 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 	}
 }
 
+```
+
+**- resonse JSON data example:**
+```json
+{
+  "payload": {
+    "clientTransactionId": "C4C3B14F-413B-4824-986C-23C7868B7B79",
+    "summary": {
+      "amountTotalNet": 5.99,
+      "discountAmountTotal": 1.87,
+      "subTotal": 8.67,
+      "taxAmountTotal": 0.81,
+      "changeAmountTotal": 3.2,
+      "tipAmountTotal": 0,
+      "paymentAmountTotal": 10,
+      "currency": "EUR",
+      "amountTotalGross": 6.8
+    },
+    "items": [
+      {
+        "quantity": 1,
+        "pricePerUnit": 2.89,
+        "productId": "84f82be1-29f7-4372-9f58-944966743991",
+        "title": "Chio Chips Salt & Vinegar 175g",
+        "vatRate": 0.07,
+        "discounts": [],
+        "type": "item",
+        "currency": "EUR",
+        "salesPerson": {
+          "customId": "0000"
+        }
+      },
+      {
+        "quantity": 2,
+        "pricePerUnit": 2.89,
+        "productId": "9cf299ac-6ac3-4246-bf17-24e7f7812632",
+        "title": "Test product",
+        "vatRate": 0.19,
+        "discounts": [
+          {
+            "type": "relative",
+            "value": 0.15
+          },
+          {
+            "type": "absolute",
+            "value": 1
+          }
+        ],
+        "type": "item",
+        "currency": "EUR",
+        "comment": "Palmolive Flüssigseife Milch & Honig 300ml",
+        "salesPerson": {
+          "customId": "0000"
+        }
+      }
+    ],
+    "payments": [
+      {
+        "currency": "EUR",
+        "amountTip": 0,
+        "type": "cash",
+        "amountTotal": 10
+      }
+    ],
+    "cashier": {
+      "customId": "0000"
+    },
+    "transactionId": "b0773ea9-a50d-4435-85fa-87003e57ed8d"
+  },
+  "header": {
+    "status": "success",
+    "callerDisplayName": "tillhub",
+    "requestActionPath": "checkout",
+    "sdkVersion": "0.0.3",
+    "requestId": "4080485E-7515-4246-B048-4684543396F0",
+    "requestPayloadType": "cart",
+    "urlScheme": "TillhubPointOfSaleSDKExample"
+  }
+}
 ```
 
 ## Support
