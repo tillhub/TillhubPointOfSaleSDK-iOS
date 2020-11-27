@@ -24,6 +24,7 @@ public enum TPOSPaymentType: String, Codable {
     case card
     case voucher
     case invoice
+    case terminalGiftCard
 }
 
 /// Payment tender type that can be triggered automatically

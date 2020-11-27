@@ -318,15 +318,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TillhubPointOfSaleSDK_Example/Pods-TillhubPointOfSaleSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/TillhubPointOfSaleSDK/TillhubPointOfSaleSDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TillhubPointOfSaleSDK.framework",
 			);
